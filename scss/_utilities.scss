@@ -1,0 +1,180 @@
+// root colors
+$bg-light: rgb(238, 234, 234);
+$bg-dark: rgb(150, 150, 150);
+$red-primary: rgb(221, 53, 53);
+$red-light: rgb(255, 184, 184);
+$yellow-primary: rgb(240, 240, 61);
+$yellow-light: rgb(253, 253, 227);
+$green-primary: rgb(34, 170, 34);
+$green-light: rgb(217, 248, 217);
+$blue-primary: rgb(33, 33, 179);
+$blue-light: rgb(210, 218, 228);
+
+// die animation
+.die-active {
+  animation: spin 500ms linear;
+
+  @keyframes spin {
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+// global classes
+
+.selected {
+  transform: scale(1.2);
+  transition: ease 300ms;
+  opacity: 0.7;
+}
+
+.die {
+  font-size: 4rem;
+  color: lightgray;
+  margin: 0 4px;
+  transition: ease 300ms;
+}
+
+.die:hover {
+  transform: scale(1.2);
+  transition: ease 300ms;
+}
+
+.btn-roll {
+  border: none;
+  outline: none;
+  padding: 10px 1.4rem;
+  color: #fff;
+  background-color: salmon;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 10px;
+  margin-left: 2rem;
+  font-size: 1.5rem;
+}
+
+.btn-end {
+  border: none;
+  outline: none;
+  padding: 10px 1.4rem;
+  color: #fff;
+  background-color: rgb(201, 201, 201);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius: 10px;
+  margin-left: 2rem;
+  font-size: 1.5rem;
+  margin-top: 10px;
+}
+
+.btn-end:hover {
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+.btn-roll:hover {
+  cursor: pointer;
+  background-color: rgb(252, 85, 66);
+}
+.row {
+  padding: 6px 4px 6px 1rem;
+  margin: 4px 0;
+}
+.score-box {
+  //padding: 1rem 1.2rem;
+  padding-top: 8px;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: bold;
+  width: 50px;
+  height: 50px;
+  border-radius: 8px;
+  border: 1px solid #333;
+}
+
+.score-box:hover {
+  opacity: 0.7;
+}
+
+.lock {
+  margin-left: 10px;
+  border-radius: 50%;
+}
+
+.info-card {
+  display: grid;
+  width: 36px;
+  height: 60px;
+  text-align: center;
+  padding-top: 6px;
+  background-color: #fff;
+  border: 3px solid $bg-dark;
+  border-radius: 10px;
+  margin: 0 2px;
+  font-weight: bold;
+  font-size: 12px;
+
+  span:first-child {
+    border-bottom: 1px solid $bg-dark;
+  }
+
+  span:last-child {
+    padding-top: 2px;
+  }
+}
+
+.penalty-box {
+  height: 40px;
+  width: 40px;
+  text-align: center;
+  font-weight: bold;
+  padding-top: 8px;
+  background-color: #fff;
+  border: 3px solid $bg-dark;
+  border-radius: 8px;
+  margin: 0 2px;
+}
+.penalty-box:hover {
+  background-color: #ccc;
+}
+
+.score-total {
+  text-align: center;
+  padding-top: 8px;
+  height: 40px;
+  width: 60px;
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+// Score table display dice
+
+.score-red {
+  color: $red-primary;
+}
+.score-yellow {
+  color: $yellow-primary;
+}
+.score-green {
+  color: $green-primary;
+}
+.score-blue {
+  color: $blue-primary;
+}
+
+// game over
+.game-over {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+  line-height: 6.5rem;
+  height: 320px;
+  width: 782px;
+  div {
+    text-align: center;
+    background: #fff;
+    padding: 1rem 2rem;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+}
