@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/all.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <title>Qwixx JS</title>
+  </head>
+  <body>
+    <div id="title-wrapper">
+      <h1>Qwixx JS</h1>
+      <p>A fun luck and strategy dice game for 2 to 4 players</p>
+
+      <button id="start-btn">Start Game</button>
+      <form id="formData">
+        <p>Choose the number of players</p>
+        <div>
+          <input
+            type="radio"
+            id="twoPlayers"
+            name="numPlayers"
+            value="2"
+            checked
+          />
+          <label for="twoPlayers"
+            ><i class="fas fa-user"></i><i class="fas fa-user"></i>
+          </label>
+          <input type="radio" id="threePlayers" name="numPlayers" value="3" />
+          <label for="threePlayers"
+            ><i class="fas fa-user"></i><i class="fas fa-user"></i
+            ><i class="fas fa-user"></i>
+          </label>
+          <input type="radio" id="fourPlayers" name="numPlayers" value="4" />
+          <label for="fourPlayers"
+            ><i class="fas fa-user"></i><i class="fas fa-user"></i
+            ><i class="fas fa-user"></i><i class="fas fa-user"></i
+          ></label>
+        </div>
+      </form>
+      <button id="rule-btn">Rules</button>
+    </div>
+    <div id="game-wrapper">
+      <div class="setting">
+        <ul>
+          <li>Players</li>
+
+          <li>Restart</li>
+        </ul>
+      </div>
+      <div id="help-btn">
+        <a
+          href="https://www.ultraboardgames.com/qwixx/game-rules.php"
+          target="#"
+          ><i class="fas fa-question"></i
+        ></a>
+      </div>
+      <div id="settings-btn">
+        <button><i class="fas fa-cog"></i></button>
+      </div>
+      <div id="app-wrapper">
+        <div class="game-table">
+          <div class="game-title">
+            <div>
+              <h1 class="player-title">Player One</h1>
+              <p>
+                The current player is: Player
+                <span class="current-player">1</span>
+              </p>
+            </div>
+            <div class="title-dice-container">
+              <i class="die fas fa-square"></i>
+              <i class="die fas fa-square"></i>
+            </div>
+          </div>
+
+          <div class="dice-row">
+            <div class="dice-container">
+              <i class="die fas fa-square"></i>
+              <i class="die fas fa-square"></i>
+              <i class="die die-red fas fa-square"></i>
+              <i class="die die-yellow fas fa-square"></i>
+              <i class="die die-green fas fa-square"></i>
+              <i class="die die-blue fas fa-square"></i>
+            </div>
+            <div class="user-btn">
+              <button class="btn-roll">Roll!</button>
+              <button class="btn-end">End</button>
+            </div>
+          </div>
+          <div id="score-card">
+            <div class="dice-score">
+              <div class="row row-red">
+                <ul class="append-red"></ul>
+              </div>
+              <div class="row row-yellow">
+                <ul class="append-yellow"></ul>
+              </div>
+              <div class="row row-green">
+                <ul class="append-green"></ul>
+              </div>
+              <div class="row row-blue">
+                <ul class="append-blue"></ul>
+              </div>
+            </div>
+            <div class="score-info">
+              <div class="score-info-left">
+                <span>X</span><span>Points</span>
+              </div>
+              <div class="score-info-mid">
+                <ul>
+                  <li class="info-card"><span>1X</span><span>1</span></li>
+                  <li class="info-card"><span>2X</span><span>3</span></li>
+                  <li class="info-card"><span>3X</span><span>6</span></li>
+                  <li class="info-card"><span>4X</span><span>10</span></li>
+                  <li class="info-card"><span>5X</span><span>15</span></li>
+                  <li class="info-card"><span>6X</span><span>21</span></li>
+                  <li class="info-card"><span>7X</span><span>28</span></li>
+                  <li class="info-card"><span>8X</span><span>36</span></li>
+                  <li class="info-card"><span>9X</span><span>45</span></li>
+                  <li class="info-card"><span>10X</span><span>55</span></li>
+                  <li class="info-card"><span>11X</span><span>66</span></li>
+                  <li class="info-card"><span>12X</span><span>78</span></li>
+                </ul>
+              </div>
+              <div class="score-info-right">
+                <div class="penalty-top">Penalty -5</div>
+                <div class="penalty-bottom">
+                  <ul>
+                    <li class="penalty-box"></li>
+                    <li class="penalty-box"></li>
+                    <li class="penalty-box"></li>
+                    <li class="penalty-box"></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="score-count">
+              <ul>
+                <li>Result:</li>
+                <li class="score-total red"></li>
+                <li><span>+</span></li>
+                <li class="score-total yellow"></li>
+                <li><span>+</span></li>
+                <li class="score-total green"></li>
+                <li><span>+</span></li>
+                <li class="score-total blue"></li>
+                <li><span>-</span></li>
+                <li class="score-total penalty"></li>
+                <li><span>=</span></li>
+                <li class="score-result"></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="players">
+          <div class="player player-one activePlayer">
+            <div><i class="fas fa-user"></i>1</div>
+            <div class="player-score player-1"></div>
+          </div>
+          <div class="player player-two">
+            <div><i class="fas fa-user"></i>2</div>
+            <div class="player-score player-2"></div>
+          </div>
+          <div class="player player-three">
+            <div><i class="fas fa-user"></i>3</div>
+            <div class="player-score player-3"></div>
+          </div>
+          <div class="player player-four">
+            <div><i class="fas fa-user"></i>4</div>
+            <div class="player-score player-4"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="js/index.js"></script>
+  </body>
+</html>

@@ -1,0 +1,318 @@
+//imports
+@import "utilities";
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: "Roboto", sans-serif;
+  position: relative;
+}
+li {
+  list-style: none;
+}
+
+ul {
+  display: flex;
+}
+
+/* ALL TITLE SYLES */
+#title-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+  h1 {
+    font-size: 3rem;
+    margin: 1rem 0;
+  }
+  p {
+    margin: 10px 0;
+    font-size: 1.2rem;
+  }
+
+  form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    p {
+      margin-right: 10px;
+    }
+
+    i {
+      margin: 0 2px;
+    }
+  }
+
+  #start-btn {
+    padding: 1rem;
+  }
+  #rule-btn {
+    padding: 1rem 2.5rem;
+  }
+}
+
+/* ALL GAME STYLES */
+.setting-active {
+  display: flex !important;
+}
+.setting {
+  display: none;
+  position: absolute;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  background-color: turquoise;
+  width: 500px;
+  height: 500px;
+  top: 25%;
+  left: 40%;
+  //z-index: 10;
+}
+
+#help-btn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  margin: 1rem;
+  transition: 300ms all ease;
+  a {
+    padding: 1.4rem 1.6rem;
+    color: #333;
+    border-radius: 50%;
+    background: rgb(210, 238, 255);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+}
+#settings-btn {
+  position: absolute;
+  top: 80px;
+  right: 20px;
+  margin: 1rem;
+  transition: 300ms all ease;
+  button {
+    border: none;
+    outline: none;
+    padding: 1.4rem 1.6rem;
+    color: #333;
+    border-radius: 50%;
+    background: rgb(210, 238, 255);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+}
+
+#game-wrapper {
+  display: none;
+}
+
+#help-btn:hover,
+#settings-btn:hover {
+  opacity: 0.8;
+  transition: 300ms all ease;
+}
+
+#app-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+  .game-title {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+
+  .dice-row {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    margin-bottom: 1rem;
+
+    border-radius: 8px;
+    padding: 1rem;
+    background-color: $bg-light;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    .dice-container {
+      background-color: white;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+      height: 100px;
+      width: 460px;
+    }
+    .user-btn {
+      display: flex;
+
+      flex-direction: column;
+    }
+    .die-red {
+      color: $red-primary;
+    }
+    .die-yellow {
+      color: $yellow-primary;
+    }
+    .die-green {
+      color: $green-primary;
+    }
+    .die-blue {
+      color: $blue-primary;
+    }
+  }
+  #score-card {
+    width: 100%;
+    //padding: 1rem;
+    background-color: $bg-light;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    .dice-score {
+      padding: 1rem 1rem 0 1rem;
+      .row-red {
+        background-color: $red-primary;
+        li {
+          background-color: $red-light;
+          color: $red-primary;
+        }
+      }
+      .row-yellow {
+        background-color: $yellow-primary;
+        li {
+          background-color: $yellow-light;
+          color: $yellow-primary;
+        }
+      }
+      .row-green {
+        background-color: $green-primary;
+        li {
+          background-color: $green-light;
+          color: $green-primary;
+        }
+      }
+      .row-blue {
+        background-color: $blue-primary;
+        li {
+          background-color: $blue-light;
+          color: $blue-primary;
+        }
+      }
+    }
+
+    .score-info {
+      display: flex;
+      justify-content: space-evenly;
+      align-content: center;
+      .score-info-left {
+        padding-top: 18px;
+        font-weight: bold;
+        text-align: center;
+        font-size: 12px;
+        span {
+          display: grid;
+        }
+        span:first-child {
+          border-bottom: 1px solid $bg-dark;
+        }
+
+        span:last-child {
+          padding-top: 2px;
+        }
+      }
+      .score-info-right {
+        display: grid;
+        text-align: center;
+      }
+    }
+    .score-count {
+      padding: 6px 1rem 1rem 1rem;
+      background-color: $bg-dark;
+      margin-top: 1rem;
+      ul {
+        display: flex;
+        align-items: center;
+        font-weight: bold;
+        li:first-child {
+          margin-right: 1rem;
+        }
+        span {
+          font-size: 2.4rem;
+          margin: 0 6px;
+        }
+        .red {
+          border: 3px solid $red-primary;
+        }
+        .yellow {
+          border: 3px solid $yellow-primary;
+        }
+        .green {
+          border: 3px solid $green-primary;
+        }
+        .blue {
+          border: 3px solid $blue-primary;
+        }
+
+        .penalty {
+          border: 3px solid darkgray;
+        }
+        .score-result {
+          width: 8rem;
+          height: 2.6rem;
+          text-align: center;
+          padding-top: 8px;
+          background-color: #fff;
+          border: 3px solid black;
+          border-radius: 8px;
+        }
+      }
+    }
+  }
+  .players {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    .player {
+      display: none;
+      justify-content: space-evenly;
+      align-items: center;
+      background-color: white;
+      height: 50px;
+      width: 120px;
+      margin: 0 1.4rem;
+      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+
+      div {
+        i {
+          padding-right: 6px;
+        }
+      }
+      .player-score {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+        height: 30px;
+        width: 40px;
+      }
+    }
+
+    .player:hover {
+      cursor: pointer;
+    }
+    .player-one {
+      background-color: $red-primary;
+    }
+    .player-two {
+      background-color: $yellow-primary;
+    }
+    .player-three {
+      background-color: $green-primary;
+    }
+    .player-four {
+      background-color: $blue-primary;
+    }
+  }
+}
