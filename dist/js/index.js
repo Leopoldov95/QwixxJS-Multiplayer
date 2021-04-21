@@ -14,17 +14,26 @@ const playersScoreCard = document.querySelectorAll(".player");
 const arrayScoreCard = Array.from(playersScoreCard);
 const rollBtn = document.querySelector(".btn-roll");
 const endBtn = document.querySelector(".btn-end");
-const redScoreRow = document.querySelector(".append-red");
-const yellowScoreRow = document.querySelector(".append-yellow");
-const greenScoreRow = document.querySelector(".append-green");
-const blueScoreRow = document.querySelector(".append-blue");
 const displayCurrentplayer = document.querySelector(".current-player");
+const allPenaltyBoxes = document.querySelectorAll(".penalty-box");
+const allredScoreBoxes = document.querySelectorAll(".score-box-red");
+const allyellowScoreBoxes = document.querySelectorAll(".score-box-yellow");
+const allgreenScoreBoxes = document.querySelectorAll(".score-box-green");
+const allblueScoreBoxes = document.querySelectorAll(".score-box-blue");
 
 // Game Control
 const CONFIG = {
+  isOneLocked: false,
+  isTwoLocked: false,
+  isGameOver: false,
+  isPlayerTurnOver: false,
   numPlayers: 0,
   currentPlayer: 0,
   players: [],
+};
+
+const gameOver = () => {
+  if (CONFIG.isGameOver) alert("the game is over");
 };
 
 // Title btn handler
@@ -81,6 +90,20 @@ function numberOfPlayers() {
   CONFIG.players[0].playerOnClick();
 }
 
+// function is used to communicate to player class and update the master game state
+const playerFn = {
+  // may want to place helper functions here that the player could use use and then pass the entire object to the player
+};
+function grabFromPlayer(config) {
+  if (!config.isOneLocked) {
+    config.isOneLocked = true;
+  } else {
+    config.isTwoLocked = true;
+    config.isGameOver = true;
+    gameOver();
+  }
+}
+
 function displayPlayers() {
   const players = Array.from(playersScoreCard);
   for (let i = 0; i < CONFIG.numPlayers; i++) {
@@ -90,7 +113,7 @@ function displayPlayers() {
 function createPlayers() {
   let players = [];
   for (let i = 1; i, i <= CONFIG.numPlayers; i++) {
-    players.push(new Player(i));
+    players.push(new Player(i, grabFromPlayer, CONFIG));
   }
 
   return players;
@@ -108,20 +131,75 @@ for (let card of arrayScoreCard) {
 
 // code and handlers for clicking on colored row
 
-redScoreRow.addEventListener("click", (e) => {
-  let player = CONFIG.players[CONFIG.currentPlayer];
-  player.scoreBoxClick(e, player.redRow, "red");
-  // have to update the score here, npt from the class
-});
-yellowScoreRow.addEventListener("click", (e) => {
-  let player = CONFIG.players[CONFIG.currentPlayer];
-  player.scoreBoxClick(e, player.yellowRow, "yellow");
-});
-greenScoreRow.addEventListener("click", (e) => {
-  let player = CONFIG.players[CONFIG.currentPlayer];
-  player.scoreBoxClick(e, player.greenRow, "green");
-});
-blueScoreRow.addEventListener("click", (e) => {
-  let player = CONFIG.players[CONFIG.currentPlayer];
-  player.scoreBoxClick(e, player.blueRow, "blue");
+for (let i of allredScoreBoxes) {
+  i.addEventListener("click", () => {
+    let player = CONFIG.players[CONFIG.currentPlayer];
+    player.scoreBoxClick(i, player.redRow, "red", player.redScore);
+  });
+}
+for (let i of allyellowScoreBoxes) {
+  i.addEventListener("click", () => {
+    let player = CONFIG.players[CONFIG.currentPlayer];
+    player.scoreBoxClick(i, player.yellowRow, "yellow", player.yellowScore);
+  });
+}
+for (let i of allgreenScoreBoxes) {
+  i.addEventListener("click", () => {
+    let player = CONFIG.players[CONFIG.currentPlayer];
+    player.scoreBoxClick(i, player.greenRow, "green", player.greenScore);
+  });
+}
+for (let i of allblueScoreBoxes) {
+  i.addEventListener("click", () => {
+    let player = CONFIG.players[CONFIG.currentPlayer];
+    player.scoreBoxClick(i, player.blueRow, "blue", player.blueScore);
+  });
+}
+
+// use this methodology to generate the color boxes, better for programming!!!!!!!
+// just change the text content of each box, no need to map over and create an entire new box every time!!! just update the inner value from the player map array
+for (let box of allPenaltyBoxes) {
+  box.addEventListener("click", () => {
+    console.log(box.textContent);
+  });
+}
+
+////EVENT DELEGATION HANDLING ///////
+//// dice selection /////////////////
+
+function checkSelectedDie() {
+  let selected = 0;
+  for (let die of document.querySelectorAll(".die")) {
+    if (die.className.includes("selected")) {
+      selected += 1;
+    }
+  }
+  return selected;
+}
+
+function checkValidDiceSelected() {
+  let total = 0;
+  let dieNum = [];
+  for (let die of document.querySelectorAll(".die")) {
+    if (die.className.includes("selected")) {
+      dieNum.push(Number(die.getAttribute("value")));
+    }
+  }
+  if (dieNum.length === 2) {
+    for (let i of dieNum) {
+      total += i;
+    }
+
+    return total;
+  }
+}
+
+document.querySelector(".dice-row").addEventListener("click", (e) => {
+  if (e.target.className.includes("die")) {
+    if (checkSelectedDie() < 2 || e.target.classList.contains("selected")) {
+      e.target.classList.toggle("selected");
+      checkSelectedDie();
+      checkValidDiceSelected();
+    }
+  }
 });
