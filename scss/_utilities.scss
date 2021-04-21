@@ -23,6 +23,10 @@ $blue-light: rgb(210, 218, 228);
 
 // global classes
 
+.activePlayer {
+  box-shadow: 1px 0px 16px 16px rgba(22, 59, 255, 0.63) !important;
+}
+
 .selected {
   transform: scale(1.2);
   transition: ease 300ms;
@@ -80,9 +84,9 @@ $blue-light: rgb(210, 218, 228);
   margin: 4px 0;
 }
 .score-box {
-  //padding: 1rem 1.2rem;
-  padding-top: 8px;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 2rem;
   font-weight: bold;
   width: 50px;

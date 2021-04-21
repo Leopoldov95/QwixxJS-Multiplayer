@@ -1,6 +1,7 @@
 //Imports
 import Player from "./Player.mjs";
 import Die from "./Die.mjs";
+import config from "./config.mjs";
 
 // main control stuff goes here
 
@@ -14,22 +15,17 @@ const playersScoreCard = document.querySelectorAll(".player");
 const arrayScoreCard = Array.from(playersScoreCard);
 const rollBtn = document.querySelector(".btn-roll");
 const endBtn = document.querySelector(".btn-end");
-const redScoreRow = document.querySelector(".append-red");
-const yellowScoreRow = document.querySelector(".append-yellow");
-const greenScoreRow = document.querySelector(".append-green");
-const blueScoreRow = document.querySelector(".append-blue");
-
-// Game Control
-const CONFIG = {
-  numPlayers: 0,
-  currentPlayer: 0,
-  players: [],
-};
+const displayCurrentplayer = document.querySelector(".current-player");
+const allPenaltyBoxes = document.querySelectorAll(".penalty-box");
+const allredScoreBoxes = document.querySelectorAll(".score-box-red");
+const allyellowScoreBoxes = document.querySelectorAll(".score-box-yellow");
+const allgreenScoreBoxes = document.querySelectorAll(".score-box-green");
+const allblueScoreBoxes = document.querySelectorAll(".score-box-blue");
 
 // Title btn handler
 startBtn.addEventListener("click", () => {
-  numberOfPlayers();
-  displayPlayers();
+  config.numberOfPlayers(playerSelection, createPlayers);
+  config.displayPlayers(playersScoreCard);
   titleDisplay.style = "display:none";
   gameDisplay.style = "display:block";
 });
@@ -43,47 +39,52 @@ rollBtn.addEventListener("click", () => {
   const newDie = new Die();
   setTimeout(() => {
     newDie.genDice();
+    newDie.genTitleDice();
   }, 500);
   newDie.roll();
 });
 
 // end turn button
 endBtn.addEventListener("click", () => {
-  console.log(CONFIG.currentPlayer);
-  if (CONFIG.currentPlayer === 3) {
-    CONFIG.players[0].playerOnClick();
-    CONFIG.currentPlayer = 0;
-    console.log(`the current player is player ${CONFIG.currentPlayer + 1}`);
+  console.log(config.currentPlayer);
+  if (config.currentPlayer === config.numPlayers - 1) {
+    config.players[0].playerOnClick();
+    config.currentPlayer = 0;
+
+    arrayScoreCard[config.numPlayers - 1].classList.remove("activePlayer");
+    arrayScoreCard[config.currentPlayer].classList.add("activePlayer");
+    console.log(`the current player is player ${config.currentPlayer + 1}`);
   } else {
-    CONFIG.currentPlayer++;
-    CONFIG.players[CONFIG.currentPlayer].playerOnClick();
-    console.log(`the current player is player ${CONFIG.currentPlayer + 1}`);
+    config.currentPlayer++;
+    config.players[config.currentPlayer].playerOnClick();
+    arrayScoreCard[config.currentPlayer - 1].classList.remove("activePlayer");
+    arrayScoreCard[config.currentPlayer].classList.add("activePlayer");
+    console.log(`the current player is player ${config.currentPlayer + 1}`);
   }
+  displayCurrentplayer.textContent = config.currentPlayer + 1;
 });
 
 //might want to put these functions into a different module
+//config.numberOfPlayers(playerSelection, createPlayers,playerOnClick)
 
-function numberOfPlayers() {
-  for (let i of playerSelection) {
-    if (i.checked) {
-      CONFIG.numPlayers = Number(i.value);
-    }
-  }
-  CONFIG.players = createPlayers();
-  displayPlayerOne();
-}
-
-function displayPlayers() {
-  const players = Array.from(playersScoreCard);
-
-  for (let i = 0; i < CONFIG.numPlayers; i++) {
-    players[i].style = "display:flex";
+// function is used to communicate to player class and update the master game state
+const playerFn = {
+  // may want to place helper functions here that the player could use use and then pass the entire object to the player
+};
+function grabFromPlayer(config) {
+  if (!config.isOneLocked) {
+    config.isOneLocked = true;
+  } else {
+    config.isTwoLocked = true;
+    config.isGameOver = true;
+    config.gameOver();
   }
 }
+
 function createPlayers() {
   let players = [];
-  for (let i = 1; i, i <= CONFIG.numPlayers; i++) {
-    players.push(new Player(i));
+  for (let i = 1; i, i <= config.numPlayers; i++) {
+    players.push(new Player(i, grabFromPlayer, config));
   }
 
   return players;
@@ -94,36 +95,82 @@ for (let card of arrayScoreCard) {
   card.addEventListener("click", () => {
     // so now by calling the method of the player, 'this' now refers to their own instance of th player class
     // now need to find a way to handle each individual player slection rather than just calling on player one
-    CONFIG.players[arrayScoreCard.indexOf(card)].playerOnClick();
-    CONFIG.currentPlayer = arrayScoreCard.indexOf(card);
+    config.players[arrayScoreCard.indexOf(card)].playerOnClick();
+    config.currentPlayer = arrayScoreCard.indexOf(card);
   });
-}
-
-// on game startup
-function displayPlayerOne() {
-  CONFIG.players[0].playerOnClick();
 }
 
 // code and handlers for clicking on colored row
 
-redScoreRow.addEventListener("click", (e) => {
-  let player = CONFIG.players[CONFIG.currentPlayer];
-  player.scoreBoxClick(e, player.redRow, player.redScore);
-  // have to update the score here, npt from the class
-  console.log(player.redScore);
-});
-yellowScoreRow.addEventListener("click", (e) => {
-  let player = CONFIG.players[CONFIG.currentPlayer];
-  player.scoreBoxClick(e, player.yellowRow, player.yellowScore);
-  console.log(player.yellowRow);
-});
-greenScoreRow.addEventListener("click", (e) => {
-  let player = CONFIG.players[CONFIG.currentPlayer];
-  player.scoreBoxClick(e, player.greenRow, player.greenScore);
-  console.log(player.greenRow);
-});
-blueScoreRow.addEventListener("click", (e) => {
-  let player = CONFIG.players[CONFIG.currentPlayer];
-  player.scoreBoxClick(e, player.blueRow, player.blueScore);
-  console.log(player.blueRow);
+for (let i of allredScoreBoxes) {
+  i.addEventListener("click", () => {
+    let player = config.players[config.currentPlayer];
+    player.scoreBoxClick(i, player.redRow, "red", player.redScore);
+  });
+}
+for (let i of allyellowScoreBoxes) {
+  i.addEventListener("click", () => {
+    let player = config.players[config.currentPlayer];
+    player.scoreBoxClick(i, player.yellowRow, "yellow", player.yellowScore);
+  });
+}
+for (let i of allgreenScoreBoxes) {
+  i.addEventListener("click", () => {
+    let player = config.players[config.currentPlayer];
+    player.scoreBoxClick(i, player.greenRow, "green", player.greenScore);
+  });
+}
+for (let i of allblueScoreBoxes) {
+  i.addEventListener("click", () => {
+    let player = config.players[config.currentPlayer];
+    player.scoreBoxClick(i, player.blueRow, "blue", player.blueScore);
+  });
+}
+
+// use this methodology to generate the color boxes, better for programming!!!!!!!
+// just change the text content of each box, no need to map over and create an entire new box every time!!! just update the inner value from the player map array
+for (let box of allPenaltyBoxes) {
+  box.addEventListener("click", () => {
+    console.log(box.textContent);
+  });
+}
+
+////EVENT DELEGATION HANDLING ///////
+//// dice selection /////////////////
+// may want to pass these functions into the player helper object
+function checkSelectedDie() {
+  let selected = 0;
+  for (let die of document.querySelectorAll(".die")) {
+    if (die.className.includes("selected")) {
+      selected += 1;
+    }
+  }
+  return selected;
+}
+
+function checkValidDiceSelected() {
+  let total = 0;
+  let dieNum = [];
+  for (let die of document.querySelectorAll(".die")) {
+    if (die.className.includes("selected")) {
+      dieNum.push(Number(die.getAttribute("value")));
+    }
+  }
+  if (dieNum.length === 2) {
+    for (let i of dieNum) {
+      total += i;
+    }
+    config.selectedDiceTotal = total;
+    console.log(config.selectedDiceTotal);
+  }
+}
+
+document.querySelector(".dice-row").addEventListener("click", (e) => {
+  if (e.target.className.includes("die")) {
+    if (checkSelectedDie() < 2 || e.target.classList.contains("selected")) {
+      e.target.classList.toggle("selected");
+      checkSelectedDie();
+      checkValidDiceSelected();
+    }
+  }
 });

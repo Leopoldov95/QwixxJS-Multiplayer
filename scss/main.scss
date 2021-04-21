@@ -69,8 +69,10 @@ ul {
   background-color: turquoise;
   width: 500px;
   height: 500px;
-  top: 25%;
-  left: 40%;
+  margin-top: -250px;
+  margin-left: -250px;
+  top: 50%;
+  left: 50%;
   //z-index: 10;
 }
 
@@ -121,6 +123,12 @@ ul {
   justify-content: center;
   align-items: center;
   height: 100vh;
+
+  .game-title {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
 
   .dice-row {
     display: flex;
@@ -284,6 +292,9 @@ ul {
         }
       }
       .player-score {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         background-color: white;
         height: 30px;
         width: 40px;
@@ -294,16 +305,16 @@ ul {
       cursor: pointer;
     }
     .player-one {
-      background-color: $red-light;
+      background-color: $red-primary;
     }
     .player-two {
-      background-color: $yellow-light;
+      background-color: $yellow-primary;
     }
     .player-three {
-      background-color: $green-light;
+      background-color: $green-primary;
     }
     .player-four {
-      background-color: $blue-light;
+      background-color: $blue-primary;
     }
   }
 }

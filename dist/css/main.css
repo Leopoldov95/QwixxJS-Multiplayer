@@ -5,6 +5,9 @@
   100% {
     transform: rotate(360deg); } }
 
+.activePlayer {
+  box-shadow: 1px 0px 16px 16px rgba(22, 59, 255, 0.63) !important; }
+
 .selected {
   transform: scale(1.2);
   transition: ease 300ms;
@@ -56,8 +59,9 @@
   margin: 4px 0; }
 
 .score-box {
-  padding-top: 8px;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 2rem;
   font-weight: bold;
   width: 50px;
@@ -192,8 +196,10 @@ ul {
   background-color: turquoise;
   width: 500px;
   height: 500px;
-  top: 25%;
-  left: 40%; }
+  margin-top: -250px;
+  margin-left: -250px;
+  top: 50%;
+  left: 50%; }
 
 #help-btn {
   position: absolute;
@@ -237,6 +243,10 @@ ul {
   justify-content: center;
   align-items: center;
   height: 100vh; }
+  #app-wrapper .game-title {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px; }
   #app-wrapper .dice-row {
     display: flex;
     justify-content: center;
@@ -356,16 +366,19 @@ ul {
       #app-wrapper .players .player div i {
         padding-right: 6px; }
       #app-wrapper .players .player .player-score {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         background-color: white;
         height: 30px;
         width: 40px; }
     #app-wrapper .players .player:hover {
       cursor: pointer; }
     #app-wrapper .players .player-one {
-      background-color: #ffb8b8; }
+      background-color: #dd3535; }
     #app-wrapper .players .player-two {
-      background-color: #fdfde3; }
+      background-color: #f0f03d; }
     #app-wrapper .players .player-three {
-      background-color: #d9f8d9; }
+      background-color: #22aa22; }
     #app-wrapper .players .player-four {
-      background-color: #d2dae4; }
+      background-color: #2121b3; }

@@ -8,10 +8,7 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"
       rel="stylesheet"
     />
-    <link
-      rel="stylesheet"
-      href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-    />
+    <link rel="stylesheet" href="css/all.css" />
     <link rel="stylesheet" href="css/main.css" />
     <title>Qwixx JS</title>
   </head>
@@ -19,6 +16,7 @@
     <div id="title-wrapper">
       <h1>Qwixx JS</h1>
       <p>A fun luck and strategy dice game for 2 to 4 players</p>
+
       <button id="start-btn">Start Game</button>
       <form id="formData">
         <p>Choose the number of players</p>
@@ -67,7 +65,20 @@
       </div>
       <div id="app-wrapper">
         <div class="game-table">
-          <h1 class="player-title">Player One</h1>
+          <div class="game-title">
+            <div>
+              <h1 class="player-title">Player One</h1>
+              <p>
+                The current player is: Player
+                <span class="current-player">1</span>
+              </p>
+            </div>
+            <div class="title-dice-container">
+              <i class="die fas fa-square"></i>
+              <i class="die fas fa-square"></i>
+            </div>
+          </div>
+
           <div class="dice-row">
             <div class="dice-container">
               <i class="die fas fa-square"></i>
@@ -85,16 +96,68 @@
           <div id="score-card">
             <div class="dice-score">
               <div class="row row-red">
-                <ul class="append-red"></ul>
+                <ul class="append-red">
+                  <li class="score-box score-box-red"></li>
+                  <li class="score-box score-box-red"></li>
+                  <li class="score-box score-box-red"></li>
+                  <li class="score-box score-box-red"></li>
+                  <li class="score-box score-box-red"></li>
+                  <li class="score-box score-box-red"></li>
+                  <li class="score-box score-box-red"></li>
+                  <li class="score-box score-box-red"></li>
+                  <li class="score-box score-box-red"></li>
+                  <li class="score-box score-box-red"></li>
+                  <li class="score-box score-box-red"></li>
+                  <li class="score-box score-box-red lock"></li>
+                </ul>
               </div>
               <div class="row row-yellow">
-                <ul class="append-yellow"></ul>
+                <ul class="append-yellow">
+                  <li class="score-box score-box-yellow"></li>
+                  <li class="score-box score-box-yellow"></li>
+                  <li class="score-box score-box-yellow"></li>
+                  <li class="score-box score-box-yellow"></li>
+                  <li class="score-box score-box-yellow"></li>
+                  <li class="score-box score-box-yellow"></li>
+                  <li class="score-box score-box-yellow"></li>
+                  <li class="score-box score-box-yellow"></li>
+                  <li class="score-box score-box-yellow"></li>
+                  <li class="score-box score-box-yellow"></li>
+                  <li class="score-box score-box-yellow"></li>
+                  <li class="score-box score-box-yellow lock"></li>
+                </ul>
               </div>
               <div class="row row-green">
-                <ul class="append-green"></ul>
+                <ul class="append-green">
+                  <li class="score-box score-box-green"></li>
+                  <li class="score-box score-box-green"></li>
+                  <li class="score-box score-box-green"></li>
+                  <li class="score-box score-box-green"></li>
+                  <li class="score-box score-box-green"></li>
+                  <li class="score-box score-box-green"></li>
+                  <li class="score-box score-box-green"></li>
+                  <li class="score-box score-box-green"></li>
+                  <li class="score-box score-box-green"></li>
+                  <li class="score-box score-box-green"></li>
+                  <li class="score-box score-box-green"></li>
+                  <li class="score-box score-box-green lock"></li>
+                </ul>
               </div>
               <div class="row row-blue">
-                <ul class="append-blue"></ul>
+                <ul class="append-blue">
+                  <li class="score-box score-box-blue"></li>
+                  <li class="score-box score-box-blue"></li>
+                  <li class="score-box score-box-blue"></li>
+                  <li class="score-box score-box-blue"></li>
+                  <li class="score-box score-box-blue"></li>
+                  <li class="score-box score-box-blue"></li>
+                  <li class="score-box score-box-blue"></li>
+                  <li class="score-box score-box-blue"></li>
+                  <li class="score-box score-box-blue"></li>
+                  <li class="score-box score-box-blue"></li>
+                  <li class="score-box score-box-blue"></li>
+                  <li class="score-box score-box-blue lock"></li>
+                </ul>
               </div>
             </div>
             <div class="score-info">
@@ -148,7 +211,7 @@
           </div>
         </div>
         <div class="players">
-          <div class="player player-one">
+          <div class="player player-one activePlayer">
             <div><i class="fas fa-user"></i>1</div>
             <div class="player-score player-1"></div>
           </div>
