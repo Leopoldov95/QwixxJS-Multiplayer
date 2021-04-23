@@ -280,7 +280,7 @@ ul {
       display: none;
       justify-content: space-evenly;
       align-items: center;
-      background-color: white;
+      background-color: rgb(233, 233, 233);
       height: 50px;
       width: 120px;
       margin: 0 1.4rem;
@@ -303,18 +303,6 @@ ul {
 
     .player:hover {
       cursor: pointer;
-    }
-    .player-one {
-      background-color: $red-primary;
-    }
-    .player-two {
-      background-color: $yellow-primary;
-    }
-    .player-three {
-      background-color: $green-primary;
-    }
-    .player-four {
-      background-color: $blue-primary;
     }
   }
 }

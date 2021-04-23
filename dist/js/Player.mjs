@@ -1,11 +1,14 @@
 import scoreHandler from "./scoreHandler.mjs";
+import config from "./config.mjs";
 
 class Player {
-  constructor(player, lockBoxFn, config) {
+  constructor(player, lockBoxFn) {
     this.player = player;
     this.lockBoxFn = lockBoxFn;
-    this.config = config;
-    this.isTurn = false;
+    this.colorDiceRemainig = 1;
+    this.whiteDiceRemaining = 1;
+    this.rollsLeft = 0;
+    this.isTurnOver = false;
     this.score = 0;
     this.redScore = 0;
     this.calculatedRedScore = 0;
@@ -20,7 +23,7 @@ class Player {
     this.yellowRow = [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, "🔒"];
     this.greenRow = [12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, "🔒"];
     this.blueRow = [12, 11, 10, 9, 8, 7, 6, 5, 4, 3, 2, "🔒"];
-    this.penalty = ["", "X", "X", ""];
+    this.penalty = ["", "", "", ""];
     this.displayCurrentScore();
   }
 
@@ -32,18 +35,17 @@ class Player {
     }
   }
 
-  /* createLockBox(lockColor) {
-    const li = document.createElement("li");
-    li.classList.add("score-box", "lock", lockColor);
-    li.innerHTML = '<i class="fas fa-unlock-alt"></i>';
-    return li;
-  } */
+  handlePenalty(element, box) {
+    this.penalty.splice(element.indexOf(box), 1, "X");
+    this.penaltyScore += 5;
+    this.generatePenaltyBox(document.querySelectorAll(".penalty-box"));
+    this.updateTotalScore();
+    document.querySelector(
+      ".score-total.penalty"
+    ).textContent = this.penaltyScore;
+  }
+
   generateBoxes(rowElement, rowColor) {
-    /* rowElement.innerHTML = "";
-    for (let item of rowColor) {
-      rowElement.appendChild(this.createListItem(item, rowColor, lockColor));
-    }*/
-    //rowElement.appendChild(this.createLockBox(lockColor));
     let rowArr = Array.from(rowElement);
     for (let i = 0; i < rowArr.length; i++) {
       rowArr[i].textContent = rowColor[i];
@@ -58,16 +60,20 @@ class Player {
   scoreBoxClick(i, rowColor, scoreColor, playerScore) {
     let targetNum = 0;
     // dice sselection validation
-    if (i.textContent !== "X") {
-      console.log(i.textContent);
+    if (
+      i.textContent !== "X" &&
+      Number(i.textContent) === config.checkValidDiceSelected() &&
+      rowColor.indexOf(Number(i.textContent)) > rowColor.lastIndexOf("X")
+    ) {
+      console.log("this did something");
       this.checkLockBox(i, rowColor, scoreColor, playerScore);
       targetNum = Number(i.textContent);
 
       this.updateColorScore(scoreColor);
       i.textContent = "X";
       this.updateTotalScore();
+      rowColor.splice(rowColor.indexOf(targetNum), 1, "X");
     }
-    rowColor.splice(rowColor.indexOf(targetNum), 1, "X");
   }
 
   checkLockBox(i, rowColor, scoreColor, playerScore) {
@@ -78,7 +84,7 @@ class Player {
       document.querySelector(`.score-box-${scoreColor}.lock`).textContent = "X";
       rowColor.splice(11, 1, "X");
       // want to somehow update master row lock tracker here
-      this.lockBoxFn(this.config);
+      config.updateLockCount();
     }
   }
 
@@ -122,7 +128,10 @@ class Player {
   }
 
   // handle player onClick player selection
-  playerOnClick() {
+  playerOnClick(refillRoll) {
+    if (refillRoll) {
+      this.rollsLeft = 1;
+    }
     document.querySelector(
       ".player-title"
     ).textContent = `Player ${this.player}`;
@@ -139,6 +148,9 @@ class Player {
     document.querySelector(
       ".score-total.blue"
     ).textContent = this.calculatedBlueScore;
+    document.querySelector(
+      ".score-total.penalty"
+    ).textContent = this.penaltyScore;
     // want to call these ONLY when player is selected
     this.generateBoxes(
       document.querySelectorAll(".score-box-red"),
@@ -156,8 +168,64 @@ class Player {
       document.querySelectorAll(".score-box-blue"),
       this.blueRow
     );
+    // generates the penalty box
     this.generatePenaltyBox(document.querySelectorAll(".penalty-box"));
   }
 }
 
 export default Player;
+
+/* 
+
+//so this handles color validation and handles players turn 
+checkDieColor(color) {
+    let dieOne;
+    let dieTwo;
+    // run for of loop for every die
+    for (let die of document.querySelectorAll(".die")) {
+      if (die.classList.contains("selected")) {
+        if (!dieOne) {
+          dieTwo = die;
+        }
+        dieOne = die;
+      }
+    }
+
+    if (
+      dieTwo.classList.contains("die-one") &&
+      dieOne.classList.contains("die-two")
+    ) {
+      if (game.dieRemaining === 1) {
+        game.dieRemaining--;
+        // run score box handler here!!!!
+        //game.displayRemainingDices();
+        game.isTurnOver = true;
+
+        return true;
+      } else {
+        return false;
+      }
+    } else if (
+      dieTwo.classList.contains("die-one") ||
+      dieTwo.classList.contains("die-two")
+    ) {
+      if (dieOne.classList.contains(`die-${color}`)) {
+        if (game.coloredDieRemaining === 1) {
+          if (game.dieRemaining === 1) {
+            game.dieRemaining--;
+          }
+          game.coloredDieRemaining--;
+          //game.displayRemainingDices();
+          game.isTurnOver = true;
+
+          return true;
+        } else {
+          return false;
+        }
+      } else {
+        return false;
+      }
+    } else {
+      return false;
+    }
+  },*/

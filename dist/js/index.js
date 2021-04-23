@@ -16,7 +16,7 @@ const arrayScoreCard = Array.from(playersScoreCard);
 const rollBtn = document.querySelector(".btn-roll");
 const endBtn = document.querySelector(".btn-end");
 const displayCurrentplayer = document.querySelector(".current-player");
-const allPenaltyBoxes = document.querySelectorAll(".penalty-box");
+const allPenaltyBoxes = Array.from(document.querySelectorAll(".penalty-box"));
 const allredScoreBoxes = document.querySelectorAll(".score-box-red");
 const allyellowScoreBoxes = document.querySelectorAll(".score-box-yellow");
 const allgreenScoreBoxes = document.querySelectorAll(".score-box-green");
@@ -36,18 +36,22 @@ form.addEventListener("submit", (e) => {
 });
 
 rollBtn.addEventListener("click", () => {
-  const newDie = new Die();
-  setTimeout(() => {
-    newDie.genDice();
-    newDie.genTitleDice();
-  }, 500);
-  newDie.roll();
+  if (config.players[config.currentPlayer].rollsLeft > 0) {
+    const newDie = new Die();
+    setTimeout(() => {
+      newDie.genDice();
+      newDie.genTitleDice();
+    }, 500);
+    newDie.roll();
+    config.players[config.currentPlayer].rollsLeft--;
+  }
 });
 
 // end turn button
 endBtn.addEventListener("click", () => {
   console.log(config.currentPlayer);
-  if (config.currentPlayer === config.numPlayers - 1) {
+  config.playerEndTurn(arrayScoreCard, displayCurrentplayer);
+  /*  if (config.currentPlayer === config.numPlayers - 1) {
     config.players[0].playerOnClick();
     config.currentPlayer = 0;
 
@@ -61,30 +65,18 @@ endBtn.addEventListener("click", () => {
     arrayScoreCard[config.currentPlayer].classList.add("activePlayer");
     console.log(`the current player is player ${config.currentPlayer + 1}`);
   }
-  displayCurrentplayer.textContent = config.currentPlayer + 1;
+  displayCurrentplayer.textContent = config.currentPlayer + 1; */
 });
 
 //might want to put these functions into a different module
 //config.numberOfPlayers(playerSelection, createPlayers,playerOnClick)
 
 // function is used to communicate to player class and update the master game state
-const playerFn = {
-  // may want to place helper functions here that the player could use use and then pass the entire object to the player
-};
-function grabFromPlayer(config) {
-  if (!config.isOneLocked) {
-    config.isOneLocked = true;
-  } else {
-    config.isTwoLocked = true;
-    config.isGameOver = true;
-    config.gameOver();
-  }
-}
 
 function createPlayers() {
   let players = [];
   for (let i = 1; i, i <= config.numPlayers; i++) {
-    players.push(new Player(i, grabFromPlayer, config));
+    players.push(new Player(i));
   }
 
   return players;
@@ -105,6 +97,7 @@ for (let card of arrayScoreCard) {
 for (let i of allredScoreBoxes) {
   i.addEventListener("click", () => {
     let player = config.players[config.currentPlayer];
+
     player.scoreBoxClick(i, player.redRow, "red", player.redScore);
   });
 }
@@ -131,46 +124,28 @@ for (let i of allblueScoreBoxes) {
 // just change the text content of each box, no need to map over and create an entire new box every time!!! just update the inner value from the player map array
 for (let box of allPenaltyBoxes) {
   box.addEventListener("click", () => {
-    console.log(box.textContent);
+    if (box.textContent !== "X") {
+      let player = config.players[config.currentMainPlayer];
+      player.handlePenalty(allPenaltyBoxes, box);
+      // also want to end the currentplayers turn and switch to the next one
+      config.playerEndTurn(arrayScoreCard, displayCurrentplayer);
+    }
   });
 }
 
 ////EVENT DELEGATION HANDLING ///////
 //// dice selection /////////////////
 // may want to pass these functions into the player helper object
-function checkSelectedDie() {
-  let selected = 0;
-  for (let die of document.querySelectorAll(".die")) {
-    if (die.className.includes("selected")) {
-      selected += 1;
-    }
-  }
-  return selected;
-}
-
-function checkValidDiceSelected() {
-  let total = 0;
-  let dieNum = [];
-  for (let die of document.querySelectorAll(".die")) {
-    if (die.className.includes("selected")) {
-      dieNum.push(Number(die.getAttribute("value")));
-    }
-  }
-  if (dieNum.length === 2) {
-    for (let i of dieNum) {
-      total += i;
-    }
-    config.selectedDiceTotal = total;
-    console.log(config.selectedDiceTotal);
-  }
-}
 
 document.querySelector(".dice-row").addEventListener("click", (e) => {
   if (e.target.className.includes("die")) {
-    if (checkSelectedDie() < 2 || e.target.classList.contains("selected")) {
+    if (
+      config.checkSelectedDie() < 2 ||
+      e.target.classList.contains("selected")
+    ) {
       e.target.classList.toggle("selected");
-      checkSelectedDie();
-      checkValidDiceSelected();
+      config.checkSelectedDie();
+      config.checkValidDiceSelected();
     }
   }
 });
