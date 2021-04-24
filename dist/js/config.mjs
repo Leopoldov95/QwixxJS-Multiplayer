@@ -84,7 +84,6 @@ const config = {
   },
   // may want to refator this later
   playerEndTurn(scoreCard, displayPlayer) {
-    console.log(this.currentMainPlayer);
     // keep in mind that player cannot end turn unless they pick a score or take a penalty
     if (this.currentMainPlayer === this.numPlayers - 1) {
       if (this.players[this.currentMainPlayer].isTurnOver) {
@@ -97,6 +96,8 @@ const config = {
         console.log(
           `the current player is player ${this.currentMainPlayer + 1}`
         );
+      } else if (!this.checkLegalMove()) {
+        this.displayWarning("only the main player can end their turn");
       } else {
         this.displayWarning("you must make a valid move first");
       }
@@ -110,8 +111,10 @@ const config = {
         console.log(
           `the current player is player ${this.currentMainPlayer + 1}`
         );
+      } else if (!this.checkLegalMove()) {
+        this.displayWarning("only the main player can end their turn");
       } else {
-        this.displayWarning("You must make a valid move first");
+        this.displayWarning("you must make a valid move first");
       }
     }
     displayPlayer.textContent = this.currentMainPlayer + 1;
