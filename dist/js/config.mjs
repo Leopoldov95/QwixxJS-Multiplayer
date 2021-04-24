@@ -9,9 +9,13 @@ const config = {
   currentPlayer: 0,
   currentMainPlayer: 0,
   players: [],
-
-  gameOver() {
-    if (this.isGameOver) alert("the game is over");
+  warning: document.querySelector(".warning-message"),
+  displayWarning(message) {
+    setTimeout(() => {
+      this.warning.style = "display:none";
+    }, 1500);
+    this.warning.textContent = message;
+    this.warning.style = "display:inline-block";
   },
 
   displayPlayers(scoreCard) {
@@ -28,6 +32,13 @@ const config = {
     }
     this.players = playerCreate();
     this.players[0].playerOnClick(true);
+  },
+  removeDiceClass() {
+    for (let die of document.querySelectorAll(".die")) {
+      if (die.className.includes("selected")) {
+        die.classList.remove("selected");
+      }
+    }
   },
   checkSelectedDie() {
     let selected = 0;
@@ -50,7 +61,7 @@ const config = {
       for (let i of dieNum) {
         total += i;
       }
-      console.log(total);
+
       return total;
     }
   },
@@ -60,28 +71,69 @@ const config = {
     } else {
       this.isTwoLocked = true;
       this.isGameOver = true;
-      this.gameOver();
+      this.checkGameOver();
     }
   },
+  // may want to refator this later
   playerEndTurn(scoreCard, displayPlayer) {
+    console.log(this.currentMainPlayer);
     // keep in mind that player cannot end turn unless they pick a score or take a penalty
     if (this.currentMainPlayer === this.numPlayers - 1) {
-      this.players[0].playerOnClick(true);
-      //this.this.currentMainPlayer = 0;
-      this.currentMainPlayer = 0;
+      if (this.players[this.currentMainPlayer].isTurnOver) {
+        this.players[0].playerOnClick(true);
+        this.currentPlayer = 0;
+        this.currentMainPlayer = 0;
 
-      scoreCard[this.numPlayers - 1].classList.remove("activePlayer");
-      scoreCard[this.currentMainPlayer].classList.add("activePlayer");
-      console.log(`the current player is player ${this.currentMainPlayer + 1}`);
+        scoreCard[this.numPlayers - 1].classList.remove("activePlayer");
+        scoreCard[this.currentMainPlayer].classList.add("activePlayer");
+        console.log(
+          `the current player is player ${this.currentMainPlayer + 1}`
+        );
+      } else {
+        this.displayWarning("you must make a valid move first");
+      }
     } else {
-      //this.this.currentMainPlayer++;
-      this.currentMainPlayer++;
-      this.players[this.currentMainPlayer].playerOnClick(true);
-      scoreCard[this.currentMainPlayer - 1].classList.remove("activePlayer");
-      scoreCard[this.currentMainPlayer].classList.add("activePlayer");
-      console.log(`the current player is player ${this.currentMainPlayer + 1}`);
+      if (this.players[this.currentMainPlayer].isTurnOver) {
+        this.currentMainPlayer++;
+        this.currentPlayer = this.currentMainPlayer;
+        this.players[this.currentMainPlayer].playerOnClick(true);
+        scoreCard[this.currentMainPlayer - 1].classList.remove("activePlayer");
+        scoreCard[this.currentMainPlayer].classList.add("activePlayer");
+        console.log(
+          `the current player is player ${this.currentMainPlayer + 1}`
+        );
+      } else {
+        this.displayWarning("You must make a valid move first");
+      }
     }
     displayPlayer.textContent = this.currentMainPlayer + 1;
+  },
+  checkLegalMove() {
+    return this.currentMainPlayer === this.currentPlayer;
+  },
+  displayWinner() {
+    let winner;
+    let highScore = -20;
+    for (let player of this.players) {
+      if (player.score > highScore) {
+        highScore = player.score;
+        winner = player.player;
+      }
+    }
+    return winner;
+  },
+  checkGameOver() {
+    if (
+      this.players[this.currentMainPlayer].penaltyScore >= 20 ||
+      (this.isOneLocked && this.isTwoLocked)
+    ) {
+      document.querySelector("#score-card").innerHTML = `
+      <div class='winner-display'>
+        <h1>GAME OVER!!!!</h1>
+        <h3>The Winner is Player ${this.displayWinner()} </h3>
+      </div>
+     `;
+    }
   },
 };
 

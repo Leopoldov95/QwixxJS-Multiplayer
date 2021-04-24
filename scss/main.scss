@@ -20,19 +20,31 @@ ul {
 
 /* ALL TITLE SYLES */
 #title-wrapper {
+  background: rgb(0, 212, 255);
+  background: linear-gradient(
+    90deg,
+    rgba(0, 212, 255, 1) 0%,
+    rgba(1, 89, 128, 1) 33%,
+    rgba(1, 45, 83, 1) 80%,
+    rgba(2, 0, 36, 1) 100%
+  );
   display: flex;
+  color: white;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh;
 
   h1 {
-    font-size: 3rem;
+    font-size: 5rem;
     margin: 1rem 0;
   }
   p {
     margin: 10px 0;
-    font-size: 1.2rem;
+    font-size: 1.6rem;
+  }
+  button {
+    margin: 1rem 0;
   }
 
   form {
@@ -44,7 +56,11 @@ ul {
     }
 
     i {
-      margin: 0 2px;
+      margin: 0 4px;
+      font-size: 1.2rem;
+    }
+    input {
+      margin-left: 10px;
     }
   }
 
@@ -78,17 +94,21 @@ ul {
 
 #help-btn {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 10px;
+  right: 10px;
   margin: 1rem;
   transition: 300ms all ease;
-  a {
-    padding: 1.4rem 1.6rem;
-    color: #333;
-    border-radius: 50%;
-    background: rgb(210, 238, 255);
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  }
+  padding: 1.4rem 1.6rem;
+  color: #333;
+  border: none;
+  outline: none;
+  border-radius: 50%;
+  background: rgb(210, 238, 255);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+#help-btn:hover {
+  cursor: pointer;
+  opacity: 0.7;
 }
 #settings-btn {
   position: absolute;
@@ -127,7 +147,14 @@ ul {
   .game-title {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: 8px;
+    .warning-message {
+      display: none;
+      max-width: 300px;
+      color: red;
+      font-size: 1.1rem;
+    }
   }
 
   .dice-row {
@@ -171,8 +198,21 @@ ul {
     //padding: 1rem;
     background-color: $bg-light;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    .winner-display {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 300px;
+      line-height: 2;
+      font-size: 2rem;
+    }
     .dice-score {
       padding: 1rem 1rem 0 1rem;
+      .row {
+        display: flex;
+        justify-content: center;
+      }
       .row-red {
         background-color: $red-primary;
         li {
@@ -304,5 +344,47 @@ ul {
     .player:hover {
       cursor: pointer;
     }
+  }
+}
+
+#rules {
+  padding: 1rem;
+  background-color: white;
+  display: none;
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  overflow-y: auto;
+  top: 50%;
+  left: 50%;
+  margin-top: -300px;
+  margin-left: -300px;
+  z-index: 10;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  h1,
+  h3 {
+    margin: 10px 0;
+  }
+  p {
+    margin: 8px 0;
+  }
+  .rules-exit {
+    position: sticky;
+    top: 0;
+    left: 0;
+    border: none;
+    color: white;
+    background-color: red;
+    padding: 6px 14px;
+    border-radius: 4px;
+    opacity: 0.4;
+  }
+  .rules-exit:hover {
+    cursor: pointer;
+  }
+  .flex-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 }

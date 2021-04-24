@@ -1,3 +1,9 @@
+//// TASKS///////
+/* 
+- reset dice selection when user scores
+- dont allow player to roll or select scores when clicking penalty
+*/
+
 //Imports
 import Player from "./Player.mjs";
 import Die from "./Die.mjs";
@@ -7,6 +13,9 @@ import config from "./config.mjs";
 
 //DOM selectors
 const startBtn = document.querySelector("#start-btn");
+const rulesBtn = document.querySelector("#rule-btn");
+const helpBtn = document.querySelector("#help-btn");
+const closeRulesBtn = document.querySelector(".rules-exit");
 const form = document.querySelector("form");
 const gameDisplay = document.querySelector("#game-wrapper");
 const titleDisplay = document.querySelector("#title-wrapper");
@@ -30,48 +39,43 @@ startBtn.addEventListener("click", () => {
   gameDisplay.style = "display:block";
 });
 
+rulesBtn.addEventListener("click", () => {
+  document.querySelector("#rules").style = "display:block";
+});
+helpBtn.addEventListener("click", () => {
+  document.querySelector("#rules").style = "display:block";
+});
+
+closeRulesBtn.addEventListener("click", () => {
+  document.querySelector("#rules").style = "display:none";
+});
+
 //Title number of players
 form.addEventListener("submit", (e) => {
   e.preventDefault();
 });
 
 rollBtn.addEventListener("click", () => {
-  if (config.players[config.currentPlayer].rollsLeft > 0) {
+  if (
+    config.players[config.currentMainPlayer].rollsLeft > 0 &&
+    config.checkLegalMove()
+  ) {
     const newDie = new Die();
     setTimeout(() => {
       newDie.genDice();
-      newDie.genTitleDice();
     }, 500);
     newDie.roll();
-    config.players[config.currentPlayer].rollsLeft--;
+    config.players[config.currentMainPlayer].rollsLeft--;
+  } else {
+    //alert("Only 1 roll per turn");
+    config.displayWarning("Only 1 roll per turn");
   }
 });
 
 // end turn button
 endBtn.addEventListener("click", () => {
-  console.log(config.currentPlayer);
   config.playerEndTurn(arrayScoreCard, displayCurrentplayer);
-  /*  if (config.currentPlayer === config.numPlayers - 1) {
-    config.players[0].playerOnClick();
-    config.currentPlayer = 0;
-
-    arrayScoreCard[config.numPlayers - 1].classList.remove("activePlayer");
-    arrayScoreCard[config.currentPlayer].classList.add("activePlayer");
-    console.log(`the current player is player ${config.currentPlayer + 1}`);
-  } else {
-    config.currentPlayer++;
-    config.players[config.currentPlayer].playerOnClick();
-    arrayScoreCard[config.currentPlayer - 1].classList.remove("activePlayer");
-    arrayScoreCard[config.currentPlayer].classList.add("activePlayer");
-    console.log(`the current player is player ${config.currentPlayer + 1}`);
-  }
-  displayCurrentplayer.textContent = config.currentPlayer + 1; */
 });
-
-//might want to put these functions into a different module
-//config.numberOfPlayers(playerSelection, createPlayers,playerOnClick)
-
-// function is used to communicate to player class and update the master game state
 
 function createPlayers() {
   let players = [];
@@ -96,27 +100,49 @@ for (let card of arrayScoreCard) {
 
 for (let i of allredScoreBoxes) {
   i.addEventListener("click", () => {
-    let player = config.players[config.currentPlayer];
+    if (config.checkLegalMove()) {
+      let player = config.players[config.currentMainPlayer];
 
-    player.scoreBoxClick(i, player.redRow, "red", player.redScore);
+      player.scoreBoxClick(i, player.redRow, "red", player.redScore);
+    } else {
+      let player = config.players[config.currentPlayer];
+
+      player.scoreBoxClick(i, player.redRow, "red", player.redScore);
+    }
   });
 }
 for (let i of allyellowScoreBoxes) {
   i.addEventListener("click", () => {
-    let player = config.players[config.currentPlayer];
-    player.scoreBoxClick(i, player.yellowRow, "yellow", player.yellowScore);
+    if (config.checkLegalMove()) {
+      let player = config.players[config.currentMainPlayer];
+      player.scoreBoxClick(i, player.yellowRow, "yellow", player.yellowScore);
+    } else {
+      let player = config.players[config.currentPlayer];
+      player.scoreBoxClick(i, player.yellowRow, "yellow", player.yellowScore);
+    }
   });
 }
 for (let i of allgreenScoreBoxes) {
   i.addEventListener("click", () => {
-    let player = config.players[config.currentPlayer];
-    player.scoreBoxClick(i, player.greenRow, "green", player.greenScore);
+    if (config.checkLegalMove()) {
+      // use the white dice rulee handler here
+      let player = config.players[config.currentMainPlayer];
+      player.scoreBoxClick(i, player.greenRow, "green", player.greenScore);
+    } else {
+      let player = config.players[config.currentPlayer];
+      player.scoreBoxClick(i, player.greenRow, "green", player.greenScore);
+    }
   });
 }
 for (let i of allblueScoreBoxes) {
   i.addEventListener("click", () => {
-    let player = config.players[config.currentPlayer];
-    player.scoreBoxClick(i, player.blueRow, "blue", player.blueScore);
+    if (config.checkLegalMove()) {
+      let player = config.players[config.currentMainPlayer];
+      player.scoreBoxClick(i, player.blueRow, "blue", player.blueScore);
+    } else {
+      let player = config.players[config.currentPlayer];
+      player.scoreBoxClick(i, player.blueRow, "blue", player.blueScore);
+    }
   });
 }
 
@@ -124,11 +150,15 @@ for (let i of allblueScoreBoxes) {
 // just change the text content of each box, no need to map over and create an entire new box every time!!! just update the inner value from the player map array
 for (let box of allPenaltyBoxes) {
   box.addEventListener("click", () => {
-    if (box.textContent !== "X") {
-      let player = config.players[config.currentMainPlayer];
-      player.handlePenalty(allPenaltyBoxes, box);
-      // also want to end the currentplayers turn and switch to the next one
-      config.playerEndTurn(arrayScoreCard, displayCurrentplayer);
+    if (config.checkLegalMove()) {
+      if (box.textContent !== "X") {
+        let player = config.players[config.currentMainPlayer];
+        player.handlePenalty(allPenaltyBoxes, box);
+        // also want to end the currentplayers turn and switch to the next one
+        // config.playerEndTurn(arrayScoreCard, displayCurrentplayer);
+      }
+    } else {
+      config.displayWarning("it is not your turn");
     }
   });
 }
@@ -139,13 +169,17 @@ for (let box of allPenaltyBoxes) {
 
 document.querySelector(".dice-row").addEventListener("click", (e) => {
   if (e.target.className.includes("die")) {
-    if (
-      config.checkSelectedDie() < 2 ||
-      e.target.classList.contains("selected")
-    ) {
-      e.target.classList.toggle("selected");
-      config.checkSelectedDie();
-      config.checkValidDiceSelected();
+    if (config.players[config.currentMainPlayer].rollsLeft === 0) {
+      if (
+        config.checkSelectedDie() < 2 ||
+        e.target.classList.contains("selected")
+      ) {
+        e.target.classList.toggle("selected");
+        config.checkSelectedDie();
+        config.checkValidDiceSelected();
+      }
+    } else {
+      config.displayWarning("You must roll first");
     }
   }
 });

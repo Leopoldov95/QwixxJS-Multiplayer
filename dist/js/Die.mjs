@@ -11,20 +11,14 @@ class Die {
     this.faceName = ["one", "two", "three", "four", "five", "six"];
     this.diceContainer = document.querySelector(".dice-row");
     this.diceContainerGen = document.querySelector(".dice-row div");
-    this.titleDice = document.querySelector(".title-dice-container");
+
     this.validScores = document.querySelector(".scores");
   }
 
   genRandNum() {
     return Math.floor(Math.random() * 6);
   }
-  genTitleDice() {
-    this.titleDice.innerHTML = `
-<i class="die fas fa-dice-${this.faceName[this.dieOne]}"></i>
-<i class="die fas fa-dice-${this.faceName[this.dieTwo]}"></i>
 
-`;
-  }
   genDice() {
     //div.classList.add('dice-row');
     this.diceContainerGen.innerHTML = `

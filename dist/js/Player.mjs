@@ -5,10 +5,10 @@ class Player {
   constructor(player, lockBoxFn) {
     this.player = player;
     this.lockBoxFn = lockBoxFn;
-    this.colorDiceRemainig = 1;
-    this.whiteDiceRemaining = 1;
+    this.colorDiceRemainig = 0;
+    this.whiteDiceRemaining = 0;
     this.rollsLeft = 0;
-    this.isTurnOver = false;
+    this.isTurnOver = true;
     this.score = 0;
     this.redScore = 0;
     this.calculatedRedScore = 0;
@@ -43,6 +43,11 @@ class Player {
     document.querySelector(
       ".score-total.penalty"
     ).textContent = this.penaltyScore;
+    this.colorDiceRemainig = 0;
+    this.whiteDiceRemaining = 0;
+    this.rollsLeft = 0;
+    this.isTurnOver = true;
+    config.checkGameOver();
   }
 
   generateBoxes(rowElement, rowColor) {
@@ -63,7 +68,8 @@ class Player {
     if (
       i.textContent !== "X" &&
       Number(i.textContent) === config.checkValidDiceSelected() &&
-      rowColor.indexOf(Number(i.textContent)) > rowColor.lastIndexOf("X")
+      rowColor.indexOf(Number(i.textContent)) > rowColor.lastIndexOf("X") &&
+      this.handleDiceRule(scoreColor)
     ) {
       console.log("this did something");
       this.checkLockBox(i, rowColor, scoreColor, playerScore);
@@ -73,6 +79,7 @@ class Player {
       i.textContent = "X";
       this.updateTotalScore();
       rowColor.splice(rowColor.indexOf(targetNum), 1, "X");
+      config.removeDiceClass();
     }
   }
 
@@ -131,26 +138,34 @@ class Player {
   playerOnClick(refillRoll) {
     if (refillRoll) {
       this.rollsLeft = 1;
+      this.colorDiceRemainig = 1;
+      //this.whiteDiceRemaining = 1;
+      this.isTurnOver = false;
+      for (let player of config.players) {
+        player.whiteDiceRemaining = 1;
+      }
     }
+    //console.log(config.players);
     document.querySelector(
       ".player-title"
     ).textContent = `Player ${this.player}`;
     document.querySelector(".score-result").textContent = this.score;
-    document.querySelector(
-      ".score-total.red"
-    ).textContent = this.calculatedRedScore;
-    document.querySelector(
-      ".score-total.yellow"
-    ).textContent = this.calculatedYellowScore;
-    document.querySelector(
-      ".score-total.green"
-    ).textContent = this.calculatedGreenScore;
-    document.querySelector(
-      ".score-total.blue"
-    ).textContent = this.calculatedBlueScore;
-    document.querySelector(
-      ".score-total.penalty"
-    ).textContent = this.penaltyScore;
+    // loop over the score boxes
+    const scoreArr = [
+      this.calculatedRedScore,
+      this.calculatedYellowScore,
+      this.calculatedGreenScore,
+      this.calculatedBlueScore,
+      this.penaltyScore,
+    ];
+    let scoreBoxArr = Array.from(document.querySelectorAll(".score-total"));
+    for (let i = 0; i < scoreArr.length; i++) {
+      scoreBoxArr[i].textContent = scoreArr[i];
+    }
+
+    // you want to remove the selected classes for all dices
+    config.removeDiceClass();
+
     // want to call these ONLY when player is selected
     this.generateBoxes(
       document.querySelectorAll(".score-box-red"),
@@ -171,14 +186,8 @@ class Player {
     // generates the penalty box
     this.generatePenaltyBox(document.querySelectorAll(".penalty-box"));
   }
-}
 
-export default Player;
-
-/* 
-
-//so this handles color validation and handles players turn 
-checkDieColor(color) {
+  handleDiceRule(color) {
     let dieOne;
     let dieTwo;
     // run for of loop for every die
@@ -195,11 +204,11 @@ checkDieColor(color) {
       dieTwo.classList.contains("die-one") &&
       dieOne.classList.contains("die-two")
     ) {
-      if (game.dieRemaining === 1) {
-        game.dieRemaining--;
+      if (this.whiteDiceRemaining === 1) {
+        this.whiteDiceRemaining--;
         // run score box handler here!!!!
         //game.displayRemainingDices();
-        game.isTurnOver = true;
+        this.isTurnOver = true;
 
         return true;
       } else {
@@ -210,13 +219,13 @@ checkDieColor(color) {
       dieTwo.classList.contains("die-two")
     ) {
       if (dieOne.classList.contains(`die-${color}`)) {
-        if (game.coloredDieRemaining === 1) {
-          if (game.dieRemaining === 1) {
-            game.dieRemaining--;
+        if (this.colorDiceRemainig === 1) {
+          if (this.whiteDiceRemaining === 1) {
+            this.whiteDiceRemaining--;
           }
-          game.coloredDieRemaining--;
-          //game.displayRemainingDices();
-          game.isTurnOver = true;
+          this.colorDiceRemainig--;
+          //this.displayRemainingDices();
+          this.isTurnOver = true;
 
           return true;
         } else {
@@ -228,4 +237,7 @@ checkDieColor(color) {
     } else {
       return false;
     }
-  },*/
+  }
+}
+
+export default Player;

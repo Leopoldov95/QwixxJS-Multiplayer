@@ -6,7 +6,7 @@
     transform: rotate(360deg); } }
 
 .activePlayer {
-  box-shadow: 1px 0px 16px 16px rgba(22, 59, 255, 0.63) !important; }
+  box-shadow: 1px 0px 16px 16px rgba(32, 125, 162, 0.66) !important; }
 
 .selected {
   transform: scale(1.2);
@@ -159,17 +159,22 @@ ul {
 
 /* ALL TITLE SYLES */
 #title-wrapper {
+  background: #00d4ff;
+  background: linear-gradient(90deg, #00d4ff 0%, #015980 33%, #012d53 80%, #020024 100%);
   display: flex;
+  color: white;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100vh; }
   #title-wrapper h1 {
-    font-size: 3rem;
+    font-size: 5rem;
     margin: 1rem 0; }
   #title-wrapper p {
     margin: 10px 0;
-    font-size: 1.2rem; }
+    font-size: 1.6rem; }
+  #title-wrapper button {
+    margin: 1rem 0; }
   #title-wrapper form {
     display: flex;
     justify-content: center;
@@ -177,7 +182,10 @@ ul {
     #title-wrapper form p {
       margin-right: 10px; }
     #title-wrapper form i {
-      margin: 0 2px; }
+      margin: 0 4px;
+      font-size: 1.2rem; }
+    #title-wrapper form input {
+      margin-left: 10px; }
   #title-wrapper #start-btn {
     padding: 1rem; }
   #title-wrapper #rule-btn {
@@ -203,16 +211,21 @@ ul {
 
 #help-btn {
   position: absolute;
-  top: 20px;
-  right: 20px;
+  top: 10px;
+  right: 10px;
   margin: 1rem;
-  transition: 300ms all ease; }
-  #help-btn a {
-    padding: 1.4rem 1.6rem;
-    color: #333;
-    border-radius: 50%;
-    background: #d2eeff;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; }
+  transition: 300ms all ease;
+  padding: 1.4rem 1.6rem;
+  color: #333;
+  border: none;
+  outline: none;
+  border-radius: 50%;
+  background: #d2eeff;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; }
+
+#help-btn:hover {
+  cursor: pointer;
+  opacity: 0.7; }
 
 #settings-btn {
   position: absolute;
@@ -246,7 +259,13 @@ ul {
   #app-wrapper .game-title {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: 8px; }
+    #app-wrapper .game-title .warning-message {
+      display: none;
+      max-width: 300px;
+      color: red;
+      font-size: 1.1rem; }
   #app-wrapper .dice-row {
     display: flex;
     justify-content: center;
@@ -278,8 +297,19 @@ ul {
     width: 100%;
     background-color: #eeeaea;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; }
+    #app-wrapper #score-card .winner-display {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 300px;
+      line-height: 2;
+      font-size: 2rem; }
     #app-wrapper #score-card .dice-score {
       padding: 1rem 1rem 0 1rem; }
+      #app-wrapper #score-card .dice-score .row {
+        display: flex;
+        justify-content: center; }
       #app-wrapper #score-card .dice-score .row-red {
         background-color: #dd3535; }
         #app-wrapper #score-card .dice-score .row-red li {
@@ -374,3 +404,39 @@ ul {
         width: 40px; }
     #app-wrapper .players .player:hover {
       cursor: pointer; }
+
+#rules {
+  padding: 1rem;
+  background-color: white;
+  display: none;
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  overflow-y: auto;
+  top: 50%;
+  left: 50%;
+  margin-top: -300px;
+  margin-left: -300px;
+  z-index: 10;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; }
+  #rules h1,
+  #rules h3 {
+    margin: 10px 0; }
+  #rules p {
+    margin: 8px 0; }
+  #rules .rules-exit {
+    position: sticky;
+    top: 0;
+    left: 0;
+    border: none;
+    color: white;
+    background-color: red;
+    padding: 6px 14px;
+    border-radius: 4px;
+    opacity: 0.4; }
+  #rules .rules-exit:hover {
+    cursor: pointer; }
+  #rules .flex-row {
+    display: flex;
+    justify-content: center;
+    align-items: center; }
