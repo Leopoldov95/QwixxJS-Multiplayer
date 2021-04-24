@@ -68,8 +68,9 @@ rollBtn.addEventListener("click", () => {
     }, 500);
     newDie.roll();
     config.players[config.currentMainPlayer].rollsLeft--;
+  } else if (!config.checkLegalMove()) {
+    config.displayWarning("Only the current Main Player can roll");
   } else {
-    //alert("Only 1 roll per turn");
     config.displayWarning("Only 1 roll per turn");
   }
 });
@@ -107,6 +108,7 @@ for (let i of allredScoreBoxes) {
       let player = config.players[config.currentPlayer];
 
       player.scoreBoxClick(i, player.redRow, "red", player.redScore);
+      config.displayHelpMessage("You can only score with white dices for now");
     }
   });
 }
@@ -118,6 +120,7 @@ for (let i of allyellowScoreBoxes) {
     } else {
       let player = config.players[config.currentPlayer];
       player.scoreBoxClick(i, player.yellowRow, "yellow", player.yellowScore);
+      config.displayHelpMessage("You can only score with white dices for now");
     }
   });
 }
@@ -130,6 +133,7 @@ for (let i of allgreenScoreBoxes) {
     } else {
       let player = config.players[config.currentPlayer];
       player.scoreBoxClick(i, player.greenRow, "green", player.greenScore);
+      config.displayHelpMessage("You can only score with white dices for now");
     }
   });
 }
@@ -141,6 +145,7 @@ for (let i of allblueScoreBoxes) {
     } else {
       let player = config.players[config.currentPlayer];
       player.scoreBoxClick(i, player.blueRow, "blue", player.blueScore);
+      config.displayHelpMessage("You can only score with white dices for now");
     }
   });
 }
@@ -174,9 +179,13 @@ document.querySelector(".dice-row").addEventListener("click", (e) => {
         config.checkSelectedDie() < 2 ||
         e.target.classList.contains("selected")
       ) {
-        config.displayHelpMessage(
-          "Once you have selected two dices, click on a valid score box, if you can't score, you must take a penalty"
-        );
+        config.checkLegalMove()
+          ? config.displayHelpMessage(
+              "Once you have selected two dices, click on a valid score box, if you can't score, you must take a penalty"
+            )
+          : config.displayHelpMessage(
+              "You can only score with white dices for now"
+            );
         e.target.classList.toggle("selected");
         config.checkSelectedDie();
         config.checkValidDiceSelected();

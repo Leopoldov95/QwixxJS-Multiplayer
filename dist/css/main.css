@@ -261,6 +261,9 @@ ul {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 8px; }
+    #app-wrapper .game-title .player-title {
+      font-size: 2.6rem;
+      font-weight: bold; }
     #app-wrapper .game-title .warning-message {
       display: none;
       max-width: 400px;

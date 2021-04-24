@@ -149,6 +149,10 @@ ul {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 8px;
+    .player-title {
+      font-size: 2.6rem;
+      font-weight: bold;
+    }
     .warning-message {
       display: none;
       max-width: 400px;
