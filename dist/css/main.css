@@ -263,9 +263,14 @@ ul {
     margin-bottom: 8px; }
     #app-wrapper .game-title .warning-message {
       display: none;
-      max-width: 300px;
+      max-width: 400px;
       color: red;
       font-size: 1.1rem; }
+    #app-wrapper .game-title .help-message {
+      display: none;
+      max-width: 450px;
+      color: #0077ff;
+      font-size: 1.2rem; }
   #app-wrapper .dice-row {
     display: flex;
     justify-content: center;

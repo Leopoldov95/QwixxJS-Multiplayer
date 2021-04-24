@@ -71,7 +71,9 @@ class Player {
       rowColor.indexOf(Number(i.textContent)) > rowColor.lastIndexOf("X") &&
       this.handleDiceRule(scoreColor)
     ) {
-      console.log("this did something");
+      config.displayHelpMessage(
+        "Now you can end your turn, but first check if other players want to use the white dices"
+      );
       this.checkLockBox(i, rowColor, scoreColor, playerScore);
       targetNum = Number(i.textContent);
 
@@ -144,6 +146,7 @@ class Player {
       for (let player of config.players) {
         player.whiteDiceRemaining = 1;
       }
+      config.displayHelpMessage("Click Roll! to begin!");
     }
     //console.log(config.players);
     document.querySelector(

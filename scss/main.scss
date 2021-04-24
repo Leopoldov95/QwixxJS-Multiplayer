@@ -151,9 +151,15 @@ ul {
     margin-bottom: 8px;
     .warning-message {
       display: none;
-      max-width: 300px;
+      max-width: 400px;
       color: red;
       font-size: 1.1rem;
+    }
+    .help-message {
+      display: none;
+      max-width: 450px;
+      color: rgb(0, 119, 255);
+      font-size: 1.2rem;
     }
   }
 

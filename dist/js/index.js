@@ -15,6 +15,7 @@ import config from "./config.mjs";
 const startBtn = document.querySelector("#start-btn");
 const rulesBtn = document.querySelector("#rule-btn");
 const helpBtn = document.querySelector("#help-btn");
+
 const closeRulesBtn = document.querySelector(".rules-exit");
 const form = document.querySelector("form");
 const gameDisplay = document.querySelector("#game-wrapper");
@@ -60,6 +61,7 @@ rollBtn.addEventListener("click", () => {
     config.players[config.currentMainPlayer].rollsLeft > 0 &&
     config.checkLegalMove()
   ) {
+    config.displayHelpMessage("click on the dice you wish to choose");
     const newDie = new Die();
     setTimeout(() => {
       newDie.genDice();
@@ -87,10 +89,7 @@ function createPlayers() {
 }
 
 for (let card of arrayScoreCard) {
-  // might want to convert into an array and use indexOf to specify the payer
   card.addEventListener("click", () => {
-    // so now by calling the method of the player, 'this' now refers to their own instance of th player class
-    // now need to find a way to handle each individual player slection rather than just calling on player one
     config.players[arrayScoreCard.indexOf(card)].playerOnClick();
     config.currentPlayer = arrayScoreCard.indexOf(card);
   });
@@ -154,8 +153,9 @@ for (let box of allPenaltyBoxes) {
       if (box.textContent !== "X") {
         let player = config.players[config.currentMainPlayer];
         player.handlePenalty(allPenaltyBoxes, box);
-        // also want to end the currentplayers turn and switch to the next one
-        // config.playerEndTurn(arrayScoreCard, displayCurrentplayer);
+        config.displayHelpMessage(
+          "Now you can end your turn, but first check if other players want to use the white dices"
+        );
       }
     } else {
       config.displayWarning("it is not your turn");
@@ -174,6 +174,9 @@ document.querySelector(".dice-row").addEventListener("click", (e) => {
         config.checkSelectedDie() < 2 ||
         e.target.classList.contains("selected")
       ) {
+        config.displayHelpMessage(
+          "Once you have selected two dices, click on a valid score box, if you can't score, you must take a penalty"
+        );
         e.target.classList.toggle("selected");
         config.checkSelectedDie();
         config.checkValidDiceSelected();

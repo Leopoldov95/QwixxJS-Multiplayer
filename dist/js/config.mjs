@@ -10,14 +10,22 @@ const config = {
   currentMainPlayer: 0,
   players: [],
   warning: document.querySelector(".warning-message"),
+  help: document.querySelector(".help-message"),
   displayWarning(message) {
     setTimeout(() => {
       this.warning.style = "display:none";
+      this.help.style = "display:inline-block";
     }, 1500);
     this.warning.textContent = message;
     this.warning.style = "display:inline-block";
+    this.help.style = "display:none";
   },
-
+  displayHelpMessage(message) {
+    this.help.textContent = "";
+    this.warning.style = "display:none";
+    this.help.style = "display:inline-block";
+    this.help.textContent = message;
+  },
   displayPlayers(scoreCard) {
     const players = Array.from(scoreCard);
     for (let i = 0; i < this.numPlayers; i++) {
