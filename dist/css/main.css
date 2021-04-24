@@ -154,19 +154,33 @@ body {
 li {
   list-style: none; }
 
+a {
+  text-decoration: none; }
+
 ul {
   display: flex; }
 
 /* ALL TITLE SYLES */
 #title-wrapper {
   background: #00d4ff;
-  background: linear-gradient(90deg, #00d4ff 0%, #015980 33%, #012d53 80%, #020024 100%);
-  display: flex;
-  color: white;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh; }
+  background: linear-gradient(90deg, #00d4ff 0%, #015980 33%, #012d53 80%, #020024 100%); }
+  #title-wrapper .footer {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    margin-left: -120px;
+    color: white; }
+    #title-wrapper .footer a {
+      color: orangered; }
+    #title-wrapper .footer a:hover {
+      opacity: 0.8; }
+  #title-wrapper .title-content {
+    display: flex;
+    color: white;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; }
   #title-wrapper h1 {
     font-size: 5rem;
     margin: 1rem 0; }
@@ -263,7 +277,7 @@ ul {
     margin-bottom: 8px; }
     #app-wrapper .game-title .player-title {
       font-size: 2.6rem;
-      font-weight: bold; }
+      font-weight: 700; }
     #app-wrapper .game-title .warning-message {
       display: none;
       max-width: 400px;
@@ -448,3 +462,16 @@ ul {
     display: flex;
     justify-content: center;
     align-items: center; }
+
+@media screen and (max-width: 490px) {
+  #app-wrapper,
+  #rules {
+    transform: scale(0.45) !important; }
+  .title-content {
+    transform: scale(0.7) !important; }
+    .title-content h1 {
+      font-size: 3rem !important; }
+    .title-content p {
+      font-size: 1.2rem !important; }
+    .title-content i {
+      font-size: 1rem !important; } }

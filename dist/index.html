@@ -14,36 +14,44 @@
   </head>
   <body>
     <div id="title-wrapper">
-      <h1>Qwixx JS</h1>
-      <p>A fun luck and strategy dice game for 2 to 4 players</p>
+      <div class="title-content">
+        <h1>Qwixx JS</h1>
+        <p>A fun luck and strategy dice game for 2 to 4 players</p>
 
-      <button id="start-btn">Start Game</button>
-      <form id="formData">
-        <p>Choose the number of players</p>
-        <div>
-          <input
-            type="radio"
-            id="twoPlayers"
-            name="numPlayers"
-            value="2"
-            checked
-          />
-          <label for="twoPlayers"
-            ><i class="fas fa-user"></i><i class="fas fa-user"></i>
-          </label>
-          <input type="radio" id="threePlayers" name="numPlayers" value="3" />
-          <label for="threePlayers"
-            ><i class="fas fa-user"></i><i class="fas fa-user"></i
-            ><i class="fas fa-user"></i>
-          </label>
-          <input type="radio" id="fourPlayers" name="numPlayers" value="4" />
-          <label for="fourPlayers"
-            ><i class="fas fa-user"></i><i class="fas fa-user"></i
-            ><i class="fas fa-user"></i><i class="fas fa-user"></i
-          ></label>
-        </div>
-      </form>
-      <button id="rule-btn">Rules</button>
+        <button id="start-btn">Start Game</button>
+        <form id="formData">
+          <p>Choose the number of players</p>
+          <div>
+            <input
+              type="radio"
+              id="twoPlayers"
+              name="numPlayers"
+              value="2"
+              checked
+            />
+            <label for="twoPlayers"
+              ><i class="fas fa-user"></i><i class="fas fa-user"></i>
+            </label>
+            <input type="radio" id="threePlayers" name="numPlayers" value="3" />
+            <label for="threePlayers"
+              ><i class="fas fa-user"></i><i class="fas fa-user"></i
+              ><i class="fas fa-user"></i>
+            </label>
+            <input type="radio" id="fourPlayers" name="numPlayers" value="4" />
+            <label for="fourPlayers"
+              ><i class="fas fa-user"></i><i class="fas fa-user"></i
+              ><i class="fas fa-user"></i><i class="fas fa-user"></i
+            ></label>
+          </div>
+        </form>
+        <button id="rule-btn">Rules</button>
+      </div>
+      <div class="footer">
+        <p>
+          created by
+          <a href="https://leovportfolio.netlify.app/index.html">Leo Ortega</a>
+        </p>
+      </div>
     </div>
     <div id="game-wrapper">
       <div class="setting">

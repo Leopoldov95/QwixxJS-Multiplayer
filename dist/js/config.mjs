@@ -32,6 +32,7 @@ const config = {
       players[i].style = "display:flex";
     }
   },
+
   numberOfPlayers(players, playerCreate) {
     for (let i of players) {
       if (i.checked) {
