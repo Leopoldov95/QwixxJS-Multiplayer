@@ -33,6 +33,16 @@ const config = {
     }
   },
 
+  selectedPlayer(scoreCard) {
+    // clear all .current-player-display
+    for (let card of document.querySelectorAll(".player")) {
+      if (card.classList.contains("current-player-display")) {
+        card.classList.remove("current-player-display");
+      }
+    }
+    scoreCard.classList.add("current-player-display");
+  },
+
   numberOfPlayers(players, playerCreate) {
     for (let i of players) {
       if (i.checked) {

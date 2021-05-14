@@ -61,7 +61,9 @@ rollBtn.addEventListener("click", () => {
     config.players[config.currentMainPlayer].rollsLeft > 0 &&
     config.checkLegalMove()
   ) {
-    config.displayHelpMessage("click on the dice you wish to choose");
+    config.displayHelpMessage(
+      "click on the dice you wish to choose. Remember to score first with the white dices before you score with color dices if you want to use both"
+    );
     const newDie = new Die();
     setTimeout(() => {
       newDie.genDice();
@@ -93,6 +95,9 @@ for (let card of arrayScoreCard) {
   card.addEventListener("click", () => {
     config.players[arrayScoreCard.indexOf(card)].playerOnClick();
     config.currentPlayer = arrayScoreCard.indexOf(card);
+    console.log(card);
+    // highlight selected score card
+    config.selectedPlayer(card);
   });
 }
 
@@ -181,7 +186,7 @@ document.querySelector(".dice-row").addEventListener("click", (e) => {
       ) {
         config.checkLegalMove()
           ? config.displayHelpMessage(
-              "Once you have selected two dices, click on a valid score box, if you can't score, you must take a penalty"
+              "Once you have selected two dices, click on a valid score box, if you can't score, you must take a penalty."
             )
           : config.displayHelpMessage(
               "You can only score with white dices for now"
@@ -195,3 +200,5 @@ document.querySelector(".dice-row").addEventListener("click", (e) => {
     }
   }
 });
+
+// display current player turn
