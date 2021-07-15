@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon" href="favicon.ico">
+    <link rel="icon" href="favicon.ico" />
     <link
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap"
       rel="stylesheet"
@@ -22,11 +22,15 @@
         <h1>Qwixx JS</h1>
         <p>A fun luck and strategy dice game for 2 to 4 players</p>
 
-        <button id="start-btn">Start Game</button>
         <form id="formData">
           <p>Choose the number of players</p>
           <div>
-            <input
+            <select name="players" id="playerSelect">
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+            <!--  <input
               type="radio"
               id="twoPlayers"
               name="numPlayers"
@@ -45,9 +49,10 @@
             <label for="fourPlayers"
               ><i class="fas fa-user"></i><i class="fas fa-user"></i
               ><i class="fas fa-user"></i><i class="fas fa-user"></i
-            ></label>
+            ></label> -->
           </div>
         </form>
+        <button id="start-btn">Start Game</button>
         <button id="rule-btn">Rules</button>
       </div>
       <div class="footer">

@@ -193,7 +193,11 @@ ul {
     margin: 10px 0;
     font-size: 1.6rem; }
   #title-wrapper button {
-    margin: 1rem 0; }
+    margin: 1rem 0;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.61); }
   #title-wrapper form {
     display: flex;
     justify-content: center;
@@ -477,6 +481,8 @@ ul {
     align-items: center; }
 
 @media screen and (max-width: 490px) {
+  #game-wrapper {
+    background: none; }
   #app-wrapper,
   #rules {
     transform: scale(0.45) !important; }

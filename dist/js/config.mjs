@@ -44,11 +44,7 @@ const config = {
   },
 
   numberOfPlayers(players, playerCreate) {
-    for (let i of players) {
-      if (i.checked) {
-        this.numPlayers = Number(i.value);
-      }
-    }
+    this.numPlayers = players;
     this.players = playerCreate();
     this.players[0].playerOnClick(true);
   },

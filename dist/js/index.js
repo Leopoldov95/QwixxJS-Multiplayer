@@ -20,7 +20,7 @@ const closeRulesBtn = document.querySelector(".rules-exit");
 const form = document.querySelector("form");
 const gameDisplay = document.querySelector("#game-wrapper");
 const titleDisplay = document.querySelector("#title-wrapper");
-const playerSelection = document.querySelectorAll("input");
+const playerSelection = document.querySelector("#playerSelect");
 const playersScoreCard = document.querySelectorAll(".player");
 const arrayScoreCard = Array.from(playersScoreCard);
 const rollBtn = document.querySelector(".btn-roll");
@@ -33,8 +33,11 @@ const allgreenScoreBoxes = document.querySelectorAll(".score-box-green");
 const allblueScoreBoxes = document.querySelectorAll(".score-box-blue");
 
 // Title btn handler
-startBtn.addEventListener("click", () => {
-  config.numberOfPlayers(playerSelection, createPlayers);
+startBtn.addEventListener("click", (e) => {
+  const data = Number(
+    playerSelection.options[playerSelection.selectedIndex].value
+  );
+  config.numberOfPlayers(data, createPlayers);
   config.displayPlayers(playersScoreCard);
   titleDisplay.style = "display:none";
   gameDisplay.style = "display:block";
