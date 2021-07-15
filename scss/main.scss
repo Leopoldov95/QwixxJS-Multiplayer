@@ -71,6 +71,9 @@ ul {
     display: flex;
     justify-content: center;
     align-items: center;
+    #playerSelect{
+      width: 45px;
+    }
     p {
       margin-right: 10px;
     }
@@ -425,6 +428,11 @@ ul {
     justify-content: center;
     align-items: center;
   }
+ .help-slider{
+  .slick-slide img{
+    width: 100%;
+  }
+ }
 }
 
 @media screen and (max-width: 490px) {
@@ -449,4 +457,25 @@ ul {
       font-size: 1rem !important;
     }
   }
+}
+
+@media screen and  (max-height: 815px) {
+  #app-wrapper {
+    .game-title {
+      transform: scale(0.8);
+      margin-bottom: -1rem;
+    }
+    .dice-row {
+      transform: scale(0.8);
+      margin-bottom: -3rem;
+    }
+    #score-card{
+      transform: scale(0.8);
+      margin-bottom: -3rem;
+    }
+    .players {
+      transform: scale(0.8)
+    }
+  }
+
 }

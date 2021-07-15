@@ -202,6 +202,8 @@ ul {
     display: flex;
     justify-content: center;
     align-items: center; }
+    #title-wrapper form #playerSelect {
+      width: 45px; }
     #title-wrapper form p {
       margin-right: 10px; }
     #title-wrapper form i {
@@ -479,6 +481,8 @@ ul {
     display: flex;
     justify-content: center;
     align-items: center; }
+  #rules .help-slider .slick-slide img {
+    width: 100%; }
 
 @media screen and (max-width: 490px) {
   #game-wrapper {
@@ -494,3 +498,16 @@ ul {
       font-size: 1.2rem !important; }
     .title-content i {
       font-size: 1rem !important; } }
+
+@media screen and (max-height: 815px) {
+  #app-wrapper .game-title {
+    transform: scale(0.8);
+    margin-bottom: -1rem; }
+  #app-wrapper .dice-row {
+    transform: scale(0.8);
+    margin-bottom: -3rem; }
+  #app-wrapper #score-card {
+    transform: scale(0.8);
+    margin-bottom: -3rem; }
+  #app-wrapper .players {
+    transform: scale(0.8); } }
