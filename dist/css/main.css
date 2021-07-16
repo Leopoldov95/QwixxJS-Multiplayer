@@ -108,7 +108,8 @@
   margin: 0 2px; }
 
 .penalty-box:hover {
-  background-color: #ccc; }
+  background-color: #ccc;
+  cursor: pointer; }
 
 .score-total {
   text-align: center;
@@ -211,10 +212,11 @@ ul {
       font-size: 1.2rem; }
     #title-wrapper form input {
       margin-left: 10px; }
-  #title-wrapper #start-btn {
+  #title-wrapper button {
     padding: 1rem; }
-  #title-wrapper #rule-btn {
-    padding: 1rem 2.5rem; }
+    #title-wrapper button:hover {
+      cursor: pointer;
+      opacity: 0.8; }
 
 /* ALL GAME STYLES */
 .setting-active {
@@ -323,6 +325,8 @@ ul {
       box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
       height: 100px;
       width: 460px; }
+    #app-wrapper .dice-row i:hover {
+      cursor: pointer; }
     #app-wrapper .dice-row .user-btn {
       display: flex;
       flex-direction: column; }
@@ -351,6 +355,8 @@ ul {
       #app-wrapper #score-card .dice-score .row {
         display: flex;
         justify-content: center; }
+        #app-wrapper #score-card .dice-score .row li:hover {
+          cursor: pointer; }
       #app-wrapper #score-card .dice-score .row-red {
         background-color: #dd3535; }
         #app-wrapper #score-card .dice-score .row-red li {
@@ -459,7 +465,15 @@ ul {
   margin-top: -300px;
   margin-left: -300px;
   z-index: 10;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px; }
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  /* Slideshow container */
+  /* Hide the images by default */
+  /* Next & previous buttons */
+  /* Position the "next button" to the right */
+  /* On hover, add a black background color with a little bit see-through */
+  /* Caption text */
+  /* The dots/bullets/indicators */
+  /* Fading animation */ }
   #rules h1,
   #rules h3 {
     margin: 10px 0; }
@@ -474,19 +488,95 @@ ul {
     background-color: red;
     padding: 6px 14px;
     border-radius: 4px;
-    opacity: 0.4; }
+    opacity: 0.4;
+    z-index: 99; }
   #rules .rules-exit:hover {
     cursor: pointer; }
   #rules .flex-row {
     display: flex;
     justify-content: center;
     align-items: center; }
-  #rules .help-slider .slick-slide img {
-    width: 100%; }
+  #rules .slideshow-container {
+    width: 100%;
+    position: relative;
+    margin: auto; }
+  #rules .mySlides {
+    display: none;
+    min-height: 500px; }
+  #rules .prev,
+  #rules .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    margin-top: -22px;
+    padding: 16px;
+    color: white;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    background-color: rgba(0, 0, 0, 0.233); }
+  #rules .next {
+    right: 0;
+    border-radius: 3px 0 0 3px; }
+  #rules .prev:hover,
+  #rules .next:hover {
+    background-color: rgba(0, 0, 0, 0.8); }
+  #rules .text {
+    color: #1b1b1b;
+    font-size: 15px;
+    padding: 8px 12px;
+    width: 100%;
+    text-align: center; }
+  #rules .dot {
+    cursor: pointer;
+    height: 15px;
+    width: 15px;
+    margin: 0 2px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease; }
+  #rules .active,
+  #rules .dot:hover {
+    background-color: #717171; }
+  #rules .fade {
+    -webkit-animation-name: fade;
+    -webkit-animation-duration: 1.5s;
+    animation-name: fade;
+    animation-duration: 1.5s; }
+
+@-webkit-keyframes fade {
+  from {
+    opacity: 0.4; }
+  to {
+    opacity: 1; } }
+
+@keyframes fade {
+  from {
+    opacity: 0.4; }
+  to {
+    opacity: 1; } }
+
+@media screen and (max-height: 815px) {
+  #app-wrapper .game-title {
+    transform: scale(0.8);
+    margin-bottom: -1rem; }
+  #app-wrapper .dice-row,
+  #app-wrapper #score-card {
+    transform: scale(0.8);
+    margin-bottom: -3rem; }
+  #app-wrapper .players {
+    transform: scale(0.8); } }
 
 @media screen and (max-width: 490px) {
-  #game-wrapper {
+  #app-wrapper {
     background: none; }
+  #game-wrapper {
+    background: #403ab4;
+    background: linear-gradient(121deg, #403ab4 0%, #1dd2fd 0%, #f6f6f6 100%); }
   #app-wrapper,
   #rules {
     transform: scale(0.45) !important; }
@@ -497,17 +587,13 @@ ul {
     .title-content p {
       font-size: 1.2rem !important; }
     .title-content i {
-      font-size: 1rem !important; } }
-
-@media screen and (max-height: 815px) {
+      font-size: 1rem !important; }
   #app-wrapper .game-title {
-    transform: scale(0.8);
-    margin-bottom: -1rem; }
-  #app-wrapper .dice-row {
-    transform: scale(0.8);
-    margin-bottom: -3rem; }
+    transform: scale(1);
+    margin-bottom: 1.5rem; }
+  #app-wrapper .dice-row,
   #app-wrapper #score-card {
-    transform: scale(0.8);
-    margin-bottom: -3rem; }
+    transform: scale(1);
+    margin-bottom: 1.5rem; }
   #app-wrapper .players {
-    transform: scale(0.8); } }
+    transform: scale(1); } }

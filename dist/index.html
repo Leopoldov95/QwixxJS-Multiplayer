@@ -13,10 +13,7 @@
       rel="stylesheet"
       href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
     />
-
     <link rel="stylesheet" href="css/main.css" />
-    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
- 
 
     <title>Qwixx JS</title>
   </head>
@@ -34,7 +31,6 @@
               <option value="3">3</option>
               <option value="4">4</option>
             </select>
-          
           </div>
         </form>
         <button id="start-btn">Start Game</button>
@@ -226,27 +222,278 @@
     </div>
     <div id="rules">
       <button class="rules-exit">X</button>
-      <div class="help-slider">
-        <div>
+      <!-- Slideshow container -->
+      <div class="slideshow-container">
+        <!-- Full-width images with number and caption text -->
+        <div class="mySlides fade">
+          <div class="text">
             <h1>How To Play</h1>
-                <p>Qwixx is a dice played between 2 to 4 players. The goal of the game is to score as many points as possible by using luck and strategy</p>
-                <h2>Scoring</h2>
-                <p>One VERY IMPORTANT rule about Qwixx is that all scoring must be from LEFT to RIGHT on the score card. More details will be provided.</p>
+            <p>
+              Qwixx is a 2 to 4 player dice game. Players must use strategy and
+              luck to achieve the highest score possible.
+            </p>
+            <p>
+              If this is your first time playing, it is recommended to read over
+              all the rules of the game.
+            </p>
+            <p>
+              If you ever require more details or an expanded set of rules,
+              refer to
+              <strong
+                ><a
+                  href="https://www.ultraboardgames.com/qwixx/game-rules.php"
+                  target="_blank"
+                  >here</a
+                ></strong
+              >
+            </p>
+            <h2>Scoring</h2>
+            <p>
+              One very important rule about Qwixx is that all scoring can only
+              be achieved by scoring from LEFT to RIGHT on the score card. More
+              details are provided in the upcoming slides.
+            </p>
+            <h2>Game Over</h2>
+            <p>
+              The game ends when either 2 colored rows have been crossed out or
+              a player marks 4 penalty boxes. The game automatically keeps track
+              of all scores and will display the winner at the end.
+            </p>
+          </div>
         </div>
-        <div> <img src="./img/help/help_01.png"/></div>
-        <div> <img src="./img/help/help_01.png"/></div>
-        <div> <img src="./img/help/help_01.png"/></div>
+        <div class="mySlides fade">
+          <img src="./img/help/help_01.png" style="width: 100%" />
+          <div class="text">
+            <p>
+              First select number of players, then click on "Start Game" to
+              begin
+            </p>
+          </div>
+        </div>
+
+        <div class="mySlides fade">
+          <img src="./img/help/help_02.png" style="width: 100%" />
+          <div class="text">
+            <h2>Players</h2>
+            <p>
+              The <strong>Main Player</strong> is the current players turn and
+              has a red border around their score
+            </p>
+            <p>
+              The <strong>Selected Player</strong> is the player who's scorecard
+              is on display and has a blueish box shadow around their score
+            </p>
+            <p>
+              The large Player title shows the
+              <strong>Selected Player</strong> and the smaller subtitle that
+              shows "the current player is:" shows the
+              <strong>Main Players</strong>
+            </p>
+            <p>
+              The game will begin with Player 1's turn. Player One must click
+              roll to roll the dice and begin the game.
+            </p>
+          </div>
+        </div>
+
+        <div class="mySlides fade">
+          <img src="./img/help/help_03.png" style="width: 100%" />
+          <div class="text">
+            <h2>How Scoring works</h2>
+            <p>
+              At this points players can start selecting dices and begin
+              scoring. Players must click on at least two dices and they must
+              either be a pair of white dices or one white die and one colored
+              die. Players cannot select two colored dices.
+            </p>
+            <p>With a pair of white dices, you can score on ANY colored row</p>
+            <p>
+              It is advisable to first score with the white dices THEN with a
+              colored dice as once you score using a colored dice, you are no
+              longer able to score using a pair of white dices
+            </p>
+            <p>
+              Scoring can only be achieved from left to right on the scorecard.
+              The goal is to have as many number boxes crossed out by the end of
+              the game.
+              <strong
+                >The number box you choose is the SUM of the two dices you have
+                selected</strong
+              >
+            </p>
+          </div>
+        </div>
+        <div class="mySlides fade">
+          <img src="./img/help/help_04.png" style="width: 100%" />
+          <div class="text">
+            <p>
+              Pick a number box to score with (in this example we are selecting
+              using a pair of white dices, each dice that was selected had a
+              value of 3, so since 3 + 3 = 6 we can only choose a number box
+              with a value of 6). See how the player selected a red number 6
+              box. From now on, the player can no longer use any number boxes TO
+              THE LEFT of the number 6 box on the red row, only numbers to the
+              right.
+            </p>
+            <p>
+              Players must use strategy on how they select their boxes as the
+              more boxes the player can mark, the higher their score.
+            </p>
+          </div>
+        </div>
+        <div class="mySlides fade">
+          <img src="./img/help/help_05.png" style="width: 100%" />
+          <div class="text">
+            <p>
+              Once the main player has scored with a pair of white dices (please
+              note that you don't have to use a pair of white dices if you don't
+              want to), they can then score using one white die and one colored
+              die
+            </p>
+          </div>
+        </div>
+        <div class="mySlides fade">
+          <img src="./img/help/help_06.png" style="width: 100%" />
+          <div class="text">
+            <p>
+              In this example, as the player chose one white die and blue die,
+              the player MUST SCORE ON THE BLUE ROW. The color of the die
+              corresponds to the colored row the player can use.
+            </p>
+          </div>
+        </div>
+        <div class="mySlides fade">
+          <img src="./img/help/help_07.png" style="width: 100%" />
+          <div class="text">
+            <h1>VERY IMPORTANT</h1>
+            <p>
+              At this point, once the main player has completed with their
+              scoring, the other players can score USING ONLY THE WHITE DICES,
+              they cannot score using a white die and a colored die.
+            </p>
+            <p>Simply click on the other players to view their scorecard</p>
+            <p>
+              This is optional for the other players and they don't have to
+              score using the white dices if they don't want to.
+            </p>
+          </div>
+        </div>
+        <div class="mySlides fade">
+          <img src="./img/help/help_08.png" style="width: 100%" />
+          <div class="text">
+            <p>
+              Once the main player has score at least one number box and all the
+              remaining players have scored using the pair of white dices (again
+              this is optional for the other players), the main player can end
+              their turn.
+            </p>
+          </div>
+        </div>
+        <div class="mySlides fade">
+          <img src="./img/help/help_09.png" style="width: 100%" />
+          <div class="text">
+            <p>
+              If the main player is unable to score or doesn't want to score,
+              they must take a penalty box and then click on the end button to
+              continue the game.
+            </p>
+          </div>
+        </div>
+        <div class="mySlides fade">
+          <img src="./img/help/help_10.png" style="width: 100%" />
+          <div class="text">
+            <p>
+              Once the end button has been clicked. The next player will now be
+              the main player and they can roll the dice. The game continues on.
+            </p>
+          </div>
+        </div>
+        <div class="mySlides fade">
+          <img src="./img/help/help_11.png" style="width: 100%" />
+          <div class="text">
+            <p>
+              The game ends when either two colored rows have been locked out or
+              a player marks 4 penalty boxes. The player with the highest score
+              wins
+            </p>
+            <p>
+              A colored row can be only be locked if the follwing conditions are
+              met:
+            </p>
+            <p>
+              <strong>
+                - at least 5 number boxes have been marked on the row (excluding
+                the last number on the right)</strong
+              >
+            </p>
+            <p>
+              <strong> - the last number on the right has been marked</strong>
+            </p>
+            <p>
+              When these conditions are met, the player who "locked out" the row
+              gets an addtional point and for the remainder of the game, that
+              colored row can no longer be used.
+            </p>
+          </div>
+        </div>
+
+        <!-- Next and previous buttons -->
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
       </div>
-      
+      <br />
+
+      <!-- The dots/circles -->
+      <div style="text-align: center">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+        <span class="dot" onclick="currentSlide(4)"></span>
+        <span class="dot" onclick="currentSlide(5)"></span>
+        <span class="dot" onclick="currentSlide(6)"></span>
+        <span class="dot" onclick="currentSlide(7)"></span>
+        <span class="dot" onclick="currentSlide(8)"></span>
+        <span class="dot" onclick="currentSlide(9)"></span>
+        <span class="dot" onclick="currentSlide(10)"></span>
+        <span class="dot" onclick="currentSlide(11)"></span>
+        <span class="dot" onclick="currentSlide(12)"></span>
+      </div>
     </div>
+
     <script type="module" src="js/index.js"></script>
-    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-    <script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
-    <script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
-    <script type="text/javascript">
-  $(document).ready(function(){
-      $('.help-slider').slick();
-    });
+    <script>
+      var slideIndex = 1;
+      showSlides(slideIndex);
+
+      // Next/previous controls
+      function plusSlides(n) {
+        showSlides((slideIndex += n));
+      }
+
+      // Thumbnail image controls
+      function currentSlide(n) {
+        showSlides((slideIndex = n));
+      }
+
+      function showSlides(n) {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        var dots = document.getElementsByClassName("dot");
+        if (n > slides.length) {
+          slideIndex = 1;
+        }
+        if (n < 1) {
+          slideIndex = slides.length;
+        }
+        for (i = 0; i < slides.length; i++) {
+          slides[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+          dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex - 1].style.display = "block";
+        dots[slideIndex - 1].className += " active";
+      }
     </script>
   </body>
 </html>
