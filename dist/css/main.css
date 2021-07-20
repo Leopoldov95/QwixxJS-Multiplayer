@@ -576,10 +576,22 @@ ul {
     background: none; }
   #game-wrapper {
     background: #403ab4;
-    background: linear-gradient(121deg, #403ab4 0%, #1dd2fd 0%, #f6f6f6 100%); }
-  #app-wrapper,
-  #rules {
+    background: linear-gradient(121deg, rgba(64, 58, 180, 0.863) 0%, rgba(29, 208, 253, 0.5) 0%, #f6f6f6 100%); }
+  #app-wrapper {
     transform: scale(0.45) !important; }
+  #rules {
+    width: 90vw;
+    height: 400px;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    margin: 0; }
+    #rules .dot {
+      height: 12px;
+      width: 12px; }
+    #rules .prev,
+    #rules .next {
+      top: 20%; }
   .title-content {
     transform: scale(0.7) !important; }
     .title-content h1 {

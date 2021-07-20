@@ -558,14 +558,31 @@ ul {
     background: rgb(64, 58, 180);
     background: linear-gradient(
       121deg,
-      rgba(64, 58, 180, 1) 0%,
-      rgba(29, 210, 253, 1) 0%,
+      rgba(64, 58, 180, 0.863) 0%,
+      rgba(29, 208, 253, 0.5) 0%,
       rgba(246, 246, 246, 1) 100%
     );
   }
-  #app-wrapper,
-  #rules {
+  #app-wrapper {
     transform: scale(0.45) !important;
+  }
+  #rules {
+    width: 90vw;
+    height: 400px;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    margin: 0;
+
+    .dot {
+      height: 12px;
+      width: 12px;
+    }
+
+    .prev,
+    .next {
+      top: 20%;
+    }
   }
 
   .title-content {
