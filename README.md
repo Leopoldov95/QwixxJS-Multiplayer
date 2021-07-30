@@ -1,5 +1,7 @@
 # QwixxJS Multiplayer Version 🎲
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/a32aefa6-63e6-4b84-a004-d5e92de0b458/deploy-status)](https://app.netlify.com/sites/qwixxjs/deploys)
+
 ## Table of Contents
 * [General Info](#general-info)
 * [Screenshot](#screenshot)
